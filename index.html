@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aiwa International Manpower | Trusted Overseas Recruitment</title>
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-pure-white': '#FFFFFF',
+                        'brand-soft-white': '#F8FAFC',
+                        'brand-light-gray': '#F1F5F9',
+                        'brand-royal-blue': '#1D4ED8',
+                        'brand-deep-navy': '#0F172A',
+                        'brand-burnt-orange': '#EA580C',
+                        'brand-orange-glow': '#FB923C',
+                        'brand-slate-gray': '#475569',
+                        'brand-silver-gray': '#CBD5E1',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <style>
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .gradient-text { 
+            background: linear-gradient(to right, #1D4ED8, #EA580C); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        .hero-bg { 
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(248, 250, 252, 0.95)), url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat; 
+        }
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(29, 78, 216, 0.3); 
+        }
+
+        /* Futuristic Nav Animation */
+        @keyframes orbitSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 9999px;
+            padding: 0.5rem 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            transition: all 0.3s ease;
+        }
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(from 0deg, transparent 0%, transparent 60%, #1D4ED8 80%, #EA580C 100%);
+            animation: orbitSpin 2.5s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -2;
+        }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            inset: 1.5px;
+            background: #FFFFFF; /* White inside to make the border pop */
+            border-radius: 9999px;
+            z-index: -1;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        .nav-item:hover::before, .nav-item.active::before,
+        .nav-item:hover::after, .nav-item.active::after {
+            opacity: 1;
+        }
+        .nav-item:hover span {
+            color: #1D4ED8;
+            text-shadow: 0 0 8px rgba(29, 78, 216, 0.3);
+        }
+        .nav-item.active span {
+            color: #EA580C;
+            text-shadow: 0 0 8px rgba(234, 88, 12, 0.4);
+        }
+        .nav-item span {
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section Animations */
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .hero-title { animation: fadeInUp 1s ease-out forwards; }
+        .hero-subtitle { animation: fadeInUp 1s ease-out 0.3s forwards; opacity: 0; }
+        .hero-text { animation: fadeInUp 1s ease-out 0.6s forwards; opacity: 0; }
+        .hero-buttons { animation: fadeInUp 1s ease-out 0.9s forwards; opacity: 0; }
+        
+        .floating-card { animation: floatEffect 4s ease-in-out infinite; }
+        .floating-card-delay-1 { animation-delay: 1s; }
+        .floating-card-delay-2 { animation-delay: 2s; }
+        .floating-card-delay-3 { animation-delay: 3s; }
+        .floating-card-delay-4 { animation-delay: 4s; }
+        .floating-card-delay-5 { animation-delay: 5s; }
+
+        /* Infinite Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 35s linear infinite;
+            width: max-content;
+        }
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        .company-logo-element {
+            filter: grayscale(100%);
+            opacity: 0.5;
+            transition: all 0.4s ease;
+        }
+        .company-card:hover .company-logo-element {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-brand-pure-white text-brand-slate-gray antialiased">
+
+    <!-- Premium Sticky Header -->
+    <header id="navbar" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-500 py-3 px-6 bg-white/80 backdrop-blur-md rounded-full border border-brand-royal-blue/30 shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
+        <div class="container mx-auto flex justify-between items-center relative">
+            <!-- Logo -->
+            <a href="#" class="text-xl md:text-2xl font-extrabold gradient-text tracking-wider z-10 relative">Aiwa</a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex space-x-1 items-center justify-center absolute left-1/2 transform -translate-x-1/2">
+                <a href="#" class="nav-item active font-medium text-sm"><span class="relative z-10">Home</span></a>
+                <a href="#about" class="nav-item font-medium text-sm"><span class="relative z-10">About</span></a>
+                <a href="#jobs" class="nav-item font-medium text-sm"><span class="relative z-10">Gulf Jobs</span></a>
+                <a href="#services" class="nav-item font-medium text-sm"><span class="relative z-10">Services</span></a>
+                <a href="#countries" class="nav-item font-medium text-sm"><span class="relative z-10">Countries</span></a>
+                <a href="#gallery" class="nav-item font-medium text-sm"><span class="relative z-10">Gallery</span></a>
+                <a href="#blog" class="nav-item font-medium text-sm"><span class="relative z-10">Blog</span></a>
+                <a href="#contact" class="nav-item font-medium text-sm"><span class="relative z-10">Contact</span></a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-4 z-10 relative">
+                <a href="#jobs" class="hidden lg:block bg-brand-royal-blue text-white px-6 py-2 font-bold rounded-full shadow-[0_4px_15px_rgba(234,88,12,0.3)] hover:shadow-[0_4px_20px_rgba(234,88,12,0.6)] hover:scale-105 transition-transform text-sm">Apply Now</a>
+                <button class="lg:hidden text-brand-burnt-orange text-2xl focus:outline-none" id="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen pt-32 pb-20 flex items-center text-center lg:text-left hero-bg px-6 relative overflow-hidden">
+        <!-- Floating Glow Effects & Particles -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-royal-blue/10 rounded-full filter blur-3xl animate-[pulse_4s_ease-in-out_infinite]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-orange-glow/10 rounded-full filter blur-3xl animate-[pulse_5s_ease-in-out_infinite]"></div>
+        
+        <!-- Small floating particles -->
+        <div class="absolute top-1/3 left-1/5 w-4 h-4 rounded-full bg-brand-burnt-orange/40 filter blur-sm floating-card"></div>
+        <div class="absolute bottom-1/3 right-1/3 w-6 h-6 rounded-full bg-brand-royal-blue/30 filter blur-sm floating-card floating-card-delay-2"></div>
+        
+        <div class="container mx-auto max-w-7xl relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+            
+            <!-- Left Content: Typography & Buttons -->
+            <div class="lg:w-[60%]">
+                <div class="hero-title inline-block mb-4">
+                    <span class="bg-brand-royal-blue/10 text-brand-royal-blue px-4 py-1.5 rounded-full text-sm font-bold tracking-wider uppercase border border-brand-royal-blue/20 shadow-sm">
+                        Premium International Consultancy
+                    </span>
+                </div>
+                
+                <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight mb-4 text-brand-deep-navy drop-shadow-sm uppercase tracking-wide">
+                    <span class="gradient-text">AIWA INTERNATIONAL</span><br>
+                    <span class="text-brand-deep-navy">MANPOWER</span>
+                </h1>
+                
+                <h2 class="hero-subtitle text-xl md:text-2xl font-bold text-brand-burnt-orange mb-6">
+                    Trusted Overseas Recruitment & Gulf Manpower Consultancy
+                </h2>
+                
+                <p class="hero-text text-lg md:text-xl text-brand-slate-gray mb-10 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+                    Connecting skilled professionals with top employers across <span class="font-semibold text-brand-royal-blue">UAE, Saudi Arabia, Qatar, Kuwait, Oman & Bahrain.</span>
+                </p>
+                
+                <div class="hero-buttons flex flex-wrap gap-4 justify-center lg:justify-start">
+                    <a href="#jobs" class="bg-brand-royal-blue text-white px-8 py-3.5 font-bold rounded-lg shadow-[0_4px_15px_rgba(29,78,216,0.3)] hover:shadow-[0_6px_25px_rgba(29,78,216,0.5)] hover:-translate-y-1 transition-all duration-300 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase"></i> Apply for Gulf Jobs
+                    </a>
+                    <a href="#contact" class="bg-white border border-brand-silver-gray text-brand-deep-navy px-8 py-3.5 font-bold rounded-lg hover:border-brand-burnt-orange hover:text-brand-burnt-orange transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 flex items-center gap-2">
+                        <i class="fa-regular fa-envelope"></i> Contact Us
+                    </a>
+                    <a href="https://wa.me/919580306440" target="_blank" class="bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] px-8 py-3.5 font-bold rounded-lg hover:bg-[#25D366] hover:text-white transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1 flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Inquiry
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Content: Floating Glass Cards -->
+            <div class="lg:w-[40%] relative h-[500px] w-full mt-10 lg:mt-0 hidden md:block">
+                <!-- Center abstract rings -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 border-brand-royal-blue/20 border-dashed animate-[spin_20s_linear_infinite] flex items-center justify-center">
+                     <div class="w-48 h-48 rounded-full border border-brand-burnt-orange/30 animate-[spin_15s_linear_infinite_reverse]"></div>
+                </div>
+
+                <!-- Floating Card 1: Trusted Employers -->
+                <div class="floating-card absolute top-10 right-4 glass-card p-4 rounded-xl shadow-lg border border-brand-royal-blue/30 flex items-center gap-4 w-56 z-20">
+                    <div class="w-12 h-12 rounded-full bg-brand-royal-blue/10 flex items-center justify-center text-brand-royal-blue text-xl"><i class="fa-solid fa-building"></i></div>
+                    <div class="text-left">
+                        <div class="text-xs text-brand-slate-gray font-medium">Trusted By</div>
+                        <div class="text-sm font-bold text-brand-deep-navy">100+ Employers</div>
+                    </div>
+                </div>
+
+                <!-- Floating Card 2: Jobs Available -->
+                <div class="floating-card floating-card-delay-1 absolute top-1/3 -left-4 glass-card p-4 rounded-xl shadow-lg border border-brand-burnt-orange/30 flex items-center gap-4 w-56 z-20">
+                    <div class="w-12 h-12 rounded-full bg-brand-burnt-orange/10 flex items-center justify-center text-brand-burnt-orange text-xl"><i class="fa-solid fa-briefcase"></i></div>
+                    <div class="text-left">
+                        <div class="text-xs text-brand-slate-gray font-medium">Gulf Jobs</div>
+                        <div class="text-sm font-bold text-brand-deep-navy">5,000+ Available</div>
+                    </div>
+                </div>
+
+                <!-- Floating Card 3: Visa Success -->
+                <div class="floating-card floating-card-delay-2 absolute bottom-1/4 -right-8 glass-card p-4 rounded-xl shadow-lg border border-[#25D366]/30 flex items-center gap-4 w-56 z-20">
+                    <div class="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] text-xl"><i class="fa-solid fa-check-circle"></i></div>
+                    <div class="text-left">
+                        <div class="text-xs text-brand-slate-gray font-medium">Visa Success</div>
+                        <div class="text-sm font-bold text-brand-deep-navy">99.9% Rate</div>
+                    </div>
+                </div>
+
+                <!-- Floating Card 4: Gulf Placements -->
+                <div class="floating-card floating-card-delay-3 absolute bottom-0 left-10 glass-card p-4 rounded-xl shadow-lg border border-brand-royal-blue/30 flex items-center gap-4 w-56 z-20">
+                    <div class="w-12 h-12 rounded-full bg-brand-royal-blue/10 flex items-center justify-center text-brand-royal-blue text-xl"><i class="fa-solid fa-plane-arrival"></i></div>
+                    <div class="text-left">
+                        <div class="text-xs text-brand-slate-gray font-medium">Placements</div>
+                        <div class="text-sm font-bold text-brand-deep-navy">Across 6 Countries</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counters -->
+    <section class="py-16 bg-brand-soft-white border-b border-brand-silver-gray">
+        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <i class="fa-solid fa-user-check text-4xl text-brand-burnt-orange mb-4"></i>
+                <div class="text-4xl font-bold mb-2 text-brand-deep-navy">1500+</div>
+                <div class="text-brand-slate-gray font-medium">Successful Placements</div>
+            </div>
+            <div>
+                <i class="fa-solid fa-file-signature text-4xl text-brand-burnt-orange mb-4"></i>
+                <div class="text-4xl font-bold mb-2 text-brand-deep-navy">2500+</div>
+                <div class="text-brand-slate-gray font-medium">Visas Processed</div>
+            </div>
+            <div>
+                <i class="fa-solid fa-globe text-4xl text-brand-burnt-orange mb-4"></i>
+                <div class="text-4xl font-bold mb-2 text-brand-deep-navy">6</div>
+                <div class="text-brand-slate-gray font-medium">Countries Served</div>
+            </div>
+            <div>
+                <i class="fa-solid fa-face-smile text-4xl text-brand-burnt-orange mb-4"></i>
+                <div class="text-4xl font-bold mb-2 text-brand-deep-navy">1200+</div>
+                <div class="text-brand-slate-gray font-medium">Happy Clients</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Highlight -->
+    <section id="services" class="py-20 relative">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy">Our Premier Services</h2>
+            <p class="text-brand-slate-gray mb-4">End-to-end solutions for your overseas employment needs.</p>
+            <div class="h-1 w-24 bg-brand-burnt-orange mx-auto rounded-full mb-12"></div>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)]">
+                    <i class="fa-solid fa-user-tie text-4xl text-brand-royal-blue mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3 text-brand-deep-navy">Overseas Recruitment</h3>
+                    <p class="text-brand-slate-gray">Connecting top-tier talent with leading companies in the Gulf for long-term success.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)]">
+                    <i class="fa-solid fa-file-contract text-4xl text-brand-royal-blue mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3 text-brand-deep-navy">Visa Assistance</h3>
+                    <p class="text-brand-slate-gray">Streamlined and efficient visa processing to ensure a hassle-free journey for all candidates.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl hover:-translate-y-2 transition-transform duration-300 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)]">
+                    <i class="fa-solid fa-plane-departure text-4xl text-brand-royal-blue mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3 text-brand-deep-navy">Manpower Consultancy</h3>
+                    <p class="text-brand-slate-gray">Expert consultancy to meet your workforce demands with strategic and reliable solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted Employers Section -->
+    <section id="employers" class="py-20 bg-brand-pure-white relative overflow-hidden border-t border-brand-silver-gray/30">
+        <div class="container mx-auto px-6 text-center relative z-10 mb-12">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy">Our Trusted Gulf Employers</h2>
+            <p class="text-brand-slate-gray mb-4">Connecting talented professionals with leading Gulf companies across multiple industries.</p>
+            <div class="h-1 w-24 bg-brand-burnt-orange mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Marquee Container -->
+        <div class="relative w-full overflow-hidden flex">
+            <!-- Fade Gradients -->
+            <div class="absolute top-0 left-0 w-16 md:w-48 h-full bg-gradient-to-r from-brand-pure-white to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute top-0 right-0 w-16 md:w-48 h-full bg-gradient-to-l from-brand-pure-white to-transparent z-10 pointer-events-none"></div>
+
+            <!-- Scrolling Track -->
+            <div class="animate-marquee flex items-center py-8">
+                
+                <!-- Duplicate Group 1 -->
+                <div class="flex">
+                    <!-- Emirates Group -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-plane-departure text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Emirates</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Aviation</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Emaar -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-regular fa-building text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">EMAAR</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Real Estate</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Saudi Aramco -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-oil-well text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Aramco</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Oil & Gas</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Saudi Arabia</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Qatar Airways -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-plane text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Qatar Airways</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Aviation</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Qatar</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Almarai -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-leaf text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Almarai</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">FMCG & Dairy</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Saudi Arabia</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- DAMAC -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-city text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">DAMAC</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Luxury Real Estate</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- DP World -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-ship text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">DP World</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Logistics & Supply</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Lulu Group -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-cart-shopping text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Lulu Group</h4>
+                        </div>
+                        <!-- Tooltip -->
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Retail & Hypermarkets</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Middle East</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Duplicate Group 2 (For seamless looping) -->
+                <div class="flex">
+                    <!-- Emirates Group -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-plane-departure text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Emirates</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Aviation</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Emaar -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-regular fa-building text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">EMAAR</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Real Estate</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Saudi Aramco -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-oil-well text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Aramco</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Oil & Gas</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Saudi Arabia</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Qatar Airways -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-plane text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Qatar Airways</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Aviation</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Qatar</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Almarai -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-leaf text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Almarai</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">FMCG & Dairy</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Saudi Arabia</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- DAMAC -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-city text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">DAMAC</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Luxury Real Estate</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- DP World -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-ship text-4xl text-brand-royal-blue mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">DP World</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Logistics & Supply</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> UAE</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+
+                    <!-- Lulu Group -->
+                    <div class="company-card group relative bg-white border border-brand-silver-gray/40 rounded-2xl p-6 w-64 flex-shrink-0 mx-4 flex flex-col items-center justify-center hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] hover:border-brand-royal-blue/30 transition-all duration-500 cursor-pointer">
+                        <div class="company-logo-element flex flex-col items-center">
+                            <i class="fa-solid fa-cart-shopping text-4xl text-brand-burnt-orange mb-3"></i>
+                            <h4 class="font-extrabold text-brand-deep-navy text-xl tracking-wide">Lulu Group</h4>
+                        </div>
+                        <div class="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-brand-deep-navy border border-brand-royal-blue/30 text-white text-sm rounded-lg py-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-xl z-20">
+                            <span class="block font-bold text-brand-orange-glow mb-1">Retail & Hypermarkets</span>
+                            <span class="text-brand-light-gray text-xs"><i class="fa-solid fa-location-dot text-brand-royal-blue mr-1"></i> Middle East</span>
+                            <div class="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-brand-deep-navy border-b border-r border-brand-royal-blue/30 rotate-45"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gulf Jobs Section -->
+    <section id="jobs" class="py-20 bg-brand-light-gray relative border-y border-brand-silver-gray">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy">Latest Gulf Jobs</h2>
+                <p class="text-brand-slate-gray mb-4">Explore high-paying job opportunities across the Gulf.</p>
+                <div class="h-1 w-24 bg-brand-burnt-orange mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="jobs-container">
+                <!-- Jobs will be injected here via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 relative">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy">What Our Candidates Say</h2>
+            <p class="text-brand-slate-gray mb-4">Success stories from professionals we've placed in the Gulf.</p>
+            <div class="h-1 w-24 bg-brand-burnt-orange mx-auto rounded-full mb-12"></div>
+
+            <!-- Swiper -->
+            <div class="swiper mySwiper pb-12">
+                <div class="swiper-wrapper text-left">
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-card p-8 rounded-2xl h-full flex flex-col">
+                            <p class="text-brand-slate-gray italic mb-6 flex-grow">"Aiwa International made my dream of working in Dubai a reality. The process was smooth and professional from start to finish. Highly recommended!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-brand-soft-white rounded-full flex items-center justify-center text-xl font-bold text-brand-burnt-orange mr-4 border-2 border-brand-royal-blue">R</div>
+                                <div>
+                                    <h4 class="font-bold text-brand-deep-navy">Rizwan Ahmed</h4>
+                                    <p class="text-sm text-brand-royal-blue">Construction Engineer in Dubai</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-card p-8 rounded-2xl h-full flex flex-col">
+                            <p class="text-brand-slate-gray italic mb-6 flex-grow">"The team is very supportive. They guided me at every step, from the interview to visa processing. Thank you for the great opportunity!"</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-brand-soft-white rounded-full flex items-center justify-center text-xl font-bold text-brand-burnt-orange mr-4 border-2 border-brand-royal-blue">S</div>
+                                <div>
+                                    <h4 class="font-bold text-brand-deep-navy">Sanjay Kumar</h4>
+                                    <p class="text-sm text-brand-royal-blue">HVAC Technician in Qatar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide h-auto">
+                        <div class="glass-card p-8 rounded-2xl h-full flex flex-col">
+                            <p class="text-brand-slate-gray italic mb-6 flex-grow">"A truly professional consultancy. They found me the perfect job that matched my profile. I am very happy with their service."</p>
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 bg-brand-soft-white rounded-full flex items-center justify-center text-xl font-bold text-brand-burnt-orange mr-4 border-2 border-brand-royal-blue">A</div>
+                                <div>
+                                    <h4 class="font-bold text-brand-deep-navy">Amit Singh</h4>
+                                    <p class="text-sm text-brand-royal-blue">Hotel Manager in Saudi Arabia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-brand-deep-navy pt-16 pb-8 border-t border-brand-royal-blue/20">
+        <div class="container mx-auto px-6 grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-1 md:col-span-1">
+                <h3 class="text-2xl font-extrabold gradient-text mb-4">Aiwa International</h3>
+                <p class="text-brand-light-gray/80">Your trusted partner in overseas manpower recruitment for the Gulf region.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg text-brand-pure-white mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-brand-light-gray/80">
+                    <li><a href="#" class="hover:text-brand-burnt-orange transition">About Us</a></li>
+                    <li><a href="#jobs" class="hover:text-brand-burnt-orange transition">Gulf Jobs</a></li>
+                    <li><a href="#services" class="hover:text-brand-burnt-orange transition">Services</a></li>
+                    <li><a href="#contact" class="hover:text-brand-burnt-orange transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg text-brand-pure-white mb-4">Services</h4>
+                <ul class="space-y-2 text-brand-light-gray/80">
+                    <li>Visa Assistance</li>
+                    <li>Documentation</li>
+                    <li>Interview Prep</li>
+                    <li>Ticketing</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg text-brand-pure-white mb-4">Contact Us</h4>
+                <p class="text-brand-light-gray/80 mb-2"><i class="fa-solid fa-envelope mr-2"></i> aiwainternationalmanpower@gmail.com</p>
+                <p class="text-brand-light-gray/80"><i class="fa-solid fa-phone mr-2"></i> +91 95803 06440</p>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="text-brand-light-gray/80 hover:text-brand-burnt-orange text-xl"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="text-brand-light-gray/80 hover:text-brand-burnt-orange text-xl"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="text-brand-light-gray/80 hover:text-brand-burnt-orange text-xl"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-brand-light-gray/50 text-sm pt-8 border-t border-brand-pure-white/10">
+            &copy; 2024 Aiwa International Manpower. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919580306440" target="_blank" class="fixed bottom-8 right-8 bg-brand-burnt-orange text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_15px_rgba(234,88,12,0.4)] hover:scale-110 transition-transform z-50">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-brand-deep-navy', 'shadow-lg');
+                nav.classList.remove('bg-transparent');
+            } else {
+                nav.classList.add('bg-transparent');
+                nav.classList.remove('bg-brand-deep-navy', 'shadow-lg');
+            }
+        });
+
+        // Initialize Swiper for Testimonials
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+
+        // Job Data and Injection
+        const jobsData = [
+            { id: 1, title: "HVAC Technician", salary: "AED 3500 - 4500", country: "UAE", experience: "5+ Years", type: "Full-time" },
+            { id: 2, title: "Construction Project Manager", salary: "SAR 15000 - 20000", country: "Saudi Arabia", experience: "10+ Years", type: "Full-time" },
+            { id: 3, title: "Hotel Front Desk Agent", salary: "QAR 4000 - 5000", country: "Qatar", experience: "2+ Years", type: "Full-time" },
+            { id: 4, title: "Heavy Vehicle Driver", salary: "KWD 250 - 350", country: "Kuwait", experience: "5+ Years", type: "Full-time" },
+            { id: 5, title: "Registered Nurse (RN)", salary: "OMR 600 - 800", country: "Oman", experience: "3+ Years", type: "Full-time" },
+            { id: 6, title: "Security Guard", salary: "BHD 200 - 300", country: "Bahrain", experience: "2+ Years", type: "Full-time" }
+        ];
+
+        const jobsContainer = document.getElementById('jobs-container');
+
+        jobsData.forEach(job => {
+            const jobCard = `
+                <div class="bg-white p-6 rounded-2xl hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-[0_10px_30px_rgba(234,88,12,0.15)] border-t-4 border-t-brand-royal-blue">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold text-brand-deep-navy">${job.title}</h3>
+                        <span class="bg-brand-royal-blue/10 text-brand-royal-blue text-xs font-bold px-2 py-1 rounded">${job.type}</span>
+                    </div>
+                    <div class="space-y-2 mb-6">
+                        <p class="text-brand-slate-gray text-sm"><i class="fa-solid fa-location-dot w-5 text-brand-burnt-orange"></i> ${job.country}</p>
+                        <p class="text-brand-slate-gray text-sm"><i class="fa-solid fa-money-bill w-5 text-brand-burnt-orange"></i> ${job.salary}</p>
+                        <p class="text-brand-slate-gray text-sm"><i class="fa-solid fa-briefcase w-5 text-brand-burnt-orange"></i> ${job.experience}</p>
+                    </div>
+                    <a href="https://wa.me/919580306440?text=I am interested in applying for the ${job.title} job in ${job.country}" target="_blank" class="block text-center w-full bg-white border border-brand-burnt-orange text-brand-royal-blue py-2 rounded font-bold hover:bg-brand-burnt-orange hover:text-white transition">
+                        Apply Now
+                    </a>
+                </div>
+            `;
+            jobsContainer.innerHTML += jobCard;
+        });
+    </script>
+</body>
+</html>
