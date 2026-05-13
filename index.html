@@ -58,6 +58,15 @@
             border: 1px solid #E5E7EB;
         }
         
+    /* --- PERFORMANCE & BLUR FIXES --- */
+    * {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    .bg-white\/40, .bg-white\/60, .bg-white\/80, .bg-white\/90 {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+
         /* --- PREMIUM 3D CORPORATE BACKGROUND --- */
         .premium-3d-bg {
             position: fixed;
@@ -75,7 +84,6 @@
         .mesh-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
             opacity: 0.6;
             animation: floatBlob 20s infinite alternate ease-in-out;
             will-change: transform;
@@ -105,7 +113,6 @@
             border-radius: 50%;
             border: 1px solid rgba(255, 255, 255, 0.4);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.02) 100%);
-            backdrop-filter: blur(6px);
             box-shadow: 0 8px 32px rgba(11, 61, 145, 0.03), inset 0 0 0 1px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.2);
             animation: floatRing 22s infinite alternate ease-in-out;
             will-change: transform;
@@ -128,7 +135,6 @@
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2) 60%, rgba(11, 61, 145, 0.05) 100%);
             box-shadow: 0 10px 30px rgba(11, 61, 145, 0.05), inset 0 -5px 15px rgba(11, 61, 145, 0.03);
-            backdrop-filter: blur(4px);
             animation: floatSphere 18s infinite alternate ease-in-out;
             will-change: transform;
         }
@@ -361,8 +367,7 @@
         }
         .service-card-mini {
             position: relative;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.95);
             border: 1px solid rgba(229, 231, 235, 0.5); /* brand-border-gray */
             border-radius: 1rem;
             padding: 2.5rem 1.5rem 2rem 1.5rem; /* Increased top padding slightly to prevent ring cutoff */
@@ -586,9 +591,6 @@
                     </button>
                     <a href="#contact" class="w-full sm:w-auto bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue px-8 py-3.5 font-bold rounded-xl hover:bg-brand-primary-blue/5 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2">
                         <i class="fa-regular fa-envelope"></i> Contact Us
-                    </a>
-                    <a href="https://wa.me/919580306440" target="_blank" class="w-full sm:w-auto bg-transparent border-2 border-[#25D366] text-[#25D366] px-8 py-3.5 font-bold rounded-xl hover:bg-[#25D366]/5 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp Inquiry
                     </a>
                 </div>
             </div>
