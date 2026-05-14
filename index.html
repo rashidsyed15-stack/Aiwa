@@ -58,15 +58,6 @@
             border: 1px solid #E5E7EB;
         }
         
-    /* --- PERFORMANCE & BLUR FIXES --- */
-    * {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-    }
-    .bg-white\/40, .bg-white\/60, .bg-white\/80, .bg-white\/90 {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-    }
-
         /* --- PREMIUM 3D CORPORATE BACKGROUND --- */
         .premium-3d-bg {
             position: fixed;
@@ -107,109 +98,221 @@
             animation-delay: -10s;
         }
 
-        /* 3D Glass Rings */
-        .glass-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.02) 100%);
-            box-shadow: 0 8px 32px rgba(11, 61, 145, 0.03), inset 0 0 0 1px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.2);
-            animation: floatRing 22s infinite alternate ease-in-out;
-            will-change: transform;
+        /* --- HERO PREMIUM DECORATIONS (LIGHTWEIGHT) --- */
+        @keyframes floatBadge {
+            0% { transform: translateY(0px) translateZ(0); }
+            100% { transform: translateY(-8px) translateZ(0); }
         }
-        .glass-ring-1 {
-            top: 15%; right: 12%;
-            width: 350px; height: 350px;
-            transform: rotateX(60deg) rotateY(20deg);
+        @keyframes pulseLineOpacity {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.1; }
         }
-        .glass-ring-2 {
-            bottom: 15%; left: 5%;
-            width: 250px; height: 250px;
-            transform: rotateX(45deg) rotateY(-20deg);
-            animation-duration: 26s; animation-direction: alternate-reverse;
+        @keyframes orbitHeroAnchor {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateZ(0); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateZ(0); }
         }
 
-        /* 3D Floating Spheres */
-        .glass-sphere {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2) 60%, rgba(11, 61, 145, 0.05) 100%);
-            box-shadow: 0 10px 30px rgba(11, 61, 145, 0.05), inset 0 -5px 15px rgba(11, 61, 145, 0.03);
-            animation: floatSphere 18s infinite alternate ease-in-out;
+        .hero-floating-badge {
             will-change: transform;
+            transition: box-shadow 0.4s ease;
         }
-        .glass-sphere-1 { top: 25%; left: 12%; width: 90px; height: 90px; }
-        .glass-sphere-2 { bottom: 35%; right: 20%; width: 120px; height: 120px; animation-delay: -6s; }
-        .glass-sphere-3 { top: 65%; left: 40%; width: 60px; height: 60px; animation-delay: -3s; background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2) 60%, rgba(214, 40, 40, 0.08) 100%); }
+        @media (min-width: 1024px) {
+            .hero-floating-badge-1 { animation: floatBadge 4s ease-in-out infinite alternate; }
+            .hero-floating-badge-2 { animation: floatBadge 5s ease-in-out infinite alternate 1.5s; }
+            .hero-floating-badge-3 { animation: floatBadge 4.5s ease-in-out infinite alternate 0.5s; }
+            .hero-floating-badge:hover { box-shadow: 0 12px 25px rgba(11, 61, 145, 0.08); }
+        }
+
+        .hero-connection-lines {
+            position: absolute; top: 50%; right: 0; width: 65%; height: 80%;
+            transform: translateY(-50%); z-index: 0; pointer-events: none;
+        }
+        .hero-line { fill: none; stroke-width: 1.5; stroke-dasharray: 6 6; will-change: opacity; }
+        .hero-line-1 { stroke: rgba(11, 61, 145, 0.15); animation: pulseLineOpacity 5s ease-in-out infinite; }
+        .hero-line-2 { stroke: rgba(214, 40, 40, 0.12); animation: pulseLineOpacity 6s ease-in-out infinite 2s; }
+        .hero-line-3 { stroke: rgba(11, 61, 145, 0.15); animation: pulseLineOpacity 7s ease-in-out infinite 4s; }
+
+        .hero-radar-decor {
+            position: absolute; top: 50%; right: 15%; width: 450px; height: 450px;
+            transform: translate(0, -50%); border: 1px solid rgba(11, 61, 145, 0.04);
+            border-radius: 50%; z-index: 0; pointer-events: none;
+        }
+        .hero-radar-decor::before {
+            content: ''; position: absolute; top: 50%; left: 50%; width: 280px; height: 280px;
+            border: 1px dashed rgba(11, 61, 145, 0.06); border-radius: 50%; transform: translate(-50%, -50%);
+        }
+        .hero-radar-decor::after {
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 12px; color: rgba(11, 61, 145, 0.3);
+            position: absolute; top: 50%; left: 50%; width: 100%; height: 100%;
+            display: flex; align-items: flex-start; justify-content: center;
+            transform-origin: center; transform: translate(-50%, -50%) rotate(0deg);
+            margin-top: -6px; will-change: transform;
+        }
+        @media (min-width: 1024px) {
+            .hero-radar-decor::after {
+                animation: orbitHeroAnchor 35s linear infinite; /* Ultra slow & elegant */
+            }
+        }
 
         /* Keyframes */
         @keyframes floatBlob {
             0% { transform: translate(0, 0) scale(1); }
             100% { transform: translate(3%, 3%) scale(1.05); }
         }
-        @keyframes floatRing {
-            0% { transform: translateY(0) rotateX(60deg) rotateY(20deg) rotateZ(0deg); }
-            100% { transform: translateY(-40px) rotateX(65deg) rotateY(25deg) rotateZ(10deg); }
-        }
-        @keyframes floatSphere {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(-50px) scale(1.05); }
-        }
 
-        /* --- PREMIUM RADAR HOVER EFFECT FOR NAVBAR --- */
+        /* --- CLEAN PREMIUM NAVBAR HOVER --- */
         .nav-item {
             position: relative;
-            padding: 0.35rem 0.6rem;
+            padding: 0.35rem 0.75rem;
             color: #1F2937;
-            transition: color 0.3s ease;
-            z-index: 1;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* --- PERFORMANCE & BLUR OPTIMIZATIONS --- */
+        .blur-3xl {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        [class*="backdrop-blur-"] {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
         }
         
-        /* Background Soft Highlight (Pill Shape) */
+        /* Disable expensive blurs on moving carousels to completely eliminate scroll lag */
+        .animate-marquee > div > div,
+        .testimonial-slider-track > div > div {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background-color: #ffffff !important;
+        }
+
+        /* --- PREMIUM ANCHOR RADAR EFFECTS --- */
+        @keyframes orbitSpin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        @keyframes orbitSpinCenter {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes anchorTravel {
+            0% { offset-distance: 0%; }
+            100% { offset-distance: 100%; }
+        }
+
+        /* 1a. Navbar Menu Items (Tight Pill Wrap Radar) */
         .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 12px);
-            height: calc(100% + 6px);
-            translate: -50% -50%;
-            border-radius: 50px;
-            background: rgba(11, 61, 145, 0.03);
-            border: 1px solid rgba(11, 61, 145, 0.06);
-            scale: 0.9;
-            opacity: 0;
-            transition: opacity 0.4s ease, scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            z-index: -2;
+            /* The tightly wrapped ultra-thin static orbit */
+            content: ''; position: absolute; inset: -2px; border-radius: calc(0.5rem + 2px);
+            border: 1px solid rgba(11, 61, 145, 0.3); opacity: 0; transition: all 0.4s ease; z-index: -2; pointer-events: none;
         }
-        
-        /* 3D Tilted Orbit Ring */
         .nav-item::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 16px);
-            min-width: 50px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            border: 1px solid rgba(11, 61, 145, 0.12); /* Thin elegant ring */
-            border-top: 1.5px solid rgba(214, 40, 40, 0.8); /* Subtle red pulse dot */
-            border-right: 1px solid rgba(11, 61, 145, 0.3); /* Soft blue glow */
+            /* The traveling tiny anchor */
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 7px; color: #D62828;
+            position: absolute; top: 0; left: 0;
+            offset-path: inset(-2px round calc(0.5rem + 2px));
+            opacity: 0; transition: opacity 0.4s ease; z-index: 10; pointer-events: none;
+            filter: drop-shadow(0 0 2px rgba(214, 40, 40, 0.5));
+        }
+
+        @media (min-width: 1024px) {
+            .nav-item:hover { box-shadow: inset 0 0 10px rgba(11, 61, 145, 0.05), 0 4px 10px rgba(11, 61, 145, 0.03); background: rgba(11, 61, 145, 0.02); color: #0B3D91; }
+            .nav-item:hover::before { opacity: 1; border-color: rgba(11, 61, 145, 0.4); box-shadow: inset 0 0 8px rgba(11, 61, 145, 0.05); }
+            .nav-item:hover::after { opacity: 1; animation: anchorTravel 3.5s linear infinite; }
             
-            /* 3D Tilt for tight wrapping */
-            transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg);
-            scale: 0.8;
-            opacity: 0;
-            transition: opacity 0.4s ease, scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            z-index: -1;
+            .nav-item.active { box-shadow: inset 0 0 8px rgba(11, 61, 145, 0.03); background: rgba(11, 61, 145, 0.04); color: #0B3D91; }
+            .nav-item.active::before { opacity: 0.5; inset: -2px; border-color: rgba(11, 61, 145, 0.2); }
+            .nav-item.active::after { opacity: 0.6; animation: anchorTravel 8s linear infinite; }
+        }
+
+        /* 1b. Text Links (Tiny Circular HUD) */
+        .radar-link { position: relative; z-index: 1; display: inline-flex; align-items: center; padding-left: 18px; transition: all 0.3s ease; }
+        
+        .radar-link::before {
+            content: ''; position: absolute; left: 0; top: 50%; width: 14px; height: 14px;
+            border-radius: 50%; border: 1px solid rgba(11, 61, 145, 0.3);
+            transform: translateY(-50%) scale(0.5); opacity: 0; transition: all 0.4s ease; z-index: -1; pointer-events: none;
+            box-shadow: inset 0 1.5px 0 rgba(214, 40, 40, 0.8);
         }
         
-        @keyframes navRadarSpin {
-            0% { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg); }
-            100% { transform: translate(-50%, -50%) rotateX(68deg) rotateZ(360deg); }
+        .radar-link::after {
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 6px; color: #0B3D91;
+            position: absolute; left: 0; top: 50%; width: 14px; height: 14px;
+            display: flex; align-items: flex-start; justify-content: center;
+            transform: translateY(-50%) scale(0.5); opacity: 0; transition: all 0.4s ease; z-index: -1; pointer-events: none;
+            padding-top: 0.5px;
+        }
+
+        .footer-link.radar-link::before { border-color: rgba(255, 255, 255, 0.3); box-shadow: inset 0 1.5px 0 rgba(214, 40, 40, 0.9); }
+        .footer-link.radar-link::after { color: #fff; }
+
+        @media (min-width: 1024px) {
+            .radar-link:hover::before, .group:hover .radar-link::before { opacity: 1; transform: translateY(-50%) scale(1); animation: orbitSpin 4s linear infinite; }
+            .radar-link:hover::after, .group:hover .radar-link::after { opacity: 1; transform: translateY(-50%) scale(1); animation: orbitSpin 4s linear infinite; }
+        }
+
+        /* 2. Buttons (Tight Pill Wrap with offset-path) */
+        .radar-btn { position: relative; z-index: 1; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .radar-btn::before {
+            /* The tightly wrapped ultra-thin static orbit */
+            content: ''; position: absolute; inset: 0; border-radius: inherit;
+            border: 1px solid rgba(255, 255, 255, 0.3); opacity: 0; transition: all 0.4s ease; z-index: -2; pointer-events: none;
+        }
+        .radar-btn::after {
+            /* The traveling anchor */
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 9px; color: #D62828;
+            position: absolute; top: 0; left: 0;
+            offset-path: inset(-4px round 24px); /* Fallback */
+            offset-path: border-box; /* Modern - Perfectly traces button border */
+            opacity: 0; transition: opacity 0.4s ease; z-index: 10; pointer-events: none;
+            filter: drop-shadow(0 0 4px rgba(214, 40, 40, 0.6));
+        }
+        .radar-btn.bg-transparent::before, .radar-btn.bg-white::before, .radar-btn.bg-brand-light-gray::before { border-color: rgba(11, 61, 145, 0.25); }
+
+        @media (min-width: 1024px) {
+            .radar-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(11, 61, 145, 0.15); }
+            .radar-btn:hover::before { opacity: 1; inset: -4px; border-color: rgba(255, 255, 255, 0.5); box-shadow: inset 0 0 10px rgba(255,255,255,0.1); }
+            .radar-btn.bg-transparent:hover::before, .radar-btn.bg-white:hover::before, .radar-btn.bg-brand-light-gray:hover::before { border-color: rgba(11, 61, 145, 0.4); box-shadow: inset 0 0 10px rgba(11,61,145,0.05); }
+            .radar-btn:hover::after { opacity: 1; animation: anchorTravel 4s linear infinite; }
+        }
+
+        /* 3. Circular Icons (.mini-icon-box, .radar-icon, .accordion-header i) */
+        .mini-icon-box, .radar-icon, .accordion-header i { position: relative; z-index: 1; }
+        .mini-icon-box::before, .radar-icon::before, .accordion-header i::before {
+            /* Orbit ring with red pulse */
+            content: ''; position: absolute; top: 50%; left: 50%; width: calc(100% + 8px); height: calc(100% + 8px);
+            border-radius: 50%; border: 1px solid rgba(11, 61, 145, 0.3);
+            transform: translate(-50%, -50%) scale(0.6); opacity: 0; transition: all 0.4s ease; z-index: -2; pointer-events: none;
+            box-shadow: inset 0 2px 0 rgba(214, 40, 40, 0.8);
+        }
+        .mini-icon-box::after, .radar-icon::after, .accordion-header i::after {
+            /* Rotating Anchor */
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 8px; color: #0B3D91;
+            position: absolute; top: 50%; left: 50%; width: calc(100% + 8px); height: calc(100% + 8px);
+            display: flex; align-items: flex-start; justify-content: center;
+            transform: translate(-50%, -50%) scale(0.6); opacity: 0; transition: all 0.4s ease; z-index: -1; pointer-events: none;
+            padding-top: 0.5px;
+        }
+        .footer-social-icon::before { border-color: rgba(255, 255, 255, 0.3); box-shadow: inset 0 2px 0 rgba(214, 40, 40, 0.9); }
+        .footer-social-icon::after { color: #fff; }
+
+        @media (min-width: 1024px) {
+            .service-card-mini:hover .mini-icon-box::before, .group:hover .radar-icon::before, .accordion-header:hover i::before { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: orbitSpinCenter 5s linear infinite; }
+            .service-card-mini:hover .mini-icon-box::after, .group:hover .radar-icon::after, .accordion-header:hover i::after { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: orbitSpinCenter 5s linear infinite; }
+        }
+
+        /* 7. Testimonials */
+        .testimonial-card-v3.group::after {
+            content: '\f13d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 16px; color: rgba(11, 61, 145, 0.1);
+            position: absolute; top: 20px; right: 24px;
+            transform: rotate(0deg); opacity: 0; transition: all 0.4s ease; pointer-events: none;
+        }
+        @media (min-width: 1024px) {
+            .testimonial-card-v3.group:hover::after { opacity: 1; color: rgba(11, 61, 145, 0.3); transform: rotate(15deg) scale(1.2); }
         }
 
         /* Preloader */
@@ -232,88 +335,6 @@
         }
         .preloader-spinner {
             width: 50px; height: 50px; border: 4px solid #0B3D91; border-top-color: #D62828; border-radius: 50%; animation: preloaderSpin 1s linear infinite;
-        }
-        
-        /* Hover States */
-        .nav-item:hover {
-            color: #0B3D91;
-        }
-        .nav-item:hover::before {
-            opacity: 1;
-            scale: 1;
-        }
-        .nav-item:hover::after {
-            opacity: 1;
-            scale: 1;
-            animation: navRadarSpin 6s linear infinite; /* Smooth slow rotation */
-        }
-        
-        /* Active Item Effect */
-        .nav-item.active {
-            color: #0B3D91;
-            font-weight: 600;
-        }
-        .nav-item.active::before {
-            opacity: 1;
-            scale: 1;
-            background: rgba(11, 61, 145, 0.04);
-            border-color: rgba(11, 61, 145, 0.08);
-        }
-        .nav-item.active::after {
-            opacity: 0.5;
-            scale: 1;
-            animation: navRadarSpin 16s linear infinite; /* Very slow ambient active spin */
-        }
-        
-        /* Desktop Apply Button Radar Effect */
-        .nav-apply-btn {
-            position: relative;
-            z-index: 1;
-        }
-        .nav-apply-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 8px);
-            height: calc(100% + 8px);
-            translate: -50% -50%;
-            border-radius: 50px;
-            background: rgba(11, 61, 145, 0.04);
-            border: 1px solid rgba(11, 61, 145, 0.1);
-            scale: 0.9;
-            opacity: 0;
-            transition: opacity 0.4s ease, scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            z-index: -2;
-        }
-        .nav-apply-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 16px);
-            min-width: 80px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            border: 1px solid rgba(11, 61, 145, 0.15);
-            border-top: 1.5px solid rgba(214, 40, 40, 0.9);
-            border-right: 1px solid rgba(11, 61, 145, 0.4);
-            transform: translate(-50%, -50%) rotateX(68deg) rotateZ(0deg);
-            scale: 0.8;
-            opacity: 0;
-            transition: opacity 0.4s ease, scale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
-            z-index: -1;
-        }
-        .nav-apply-btn:hover::before {
-            opacity: 1;
-            scale: 1;
-        }
-        .nav-apply-btn:hover::after {
-            opacity: 1;
-            scale: 1;
-            animation: navRadarSpin 6s linear infinite;
         }
         
         /* Mobile Menu Items - Subtle Glow */
@@ -360,96 +381,41 @@
             opacity: 1;
         }
 
-        /* Premium Service Icon Radar Orbit */
-        @keyframes serviceOrbitSpin {
-            from { rotate: 0deg; }
-            to { rotate: 360deg; }
-        }
+        /* Premium Service Card */
         .service-card-mini {
-            position: relative;
             background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(229, 231, 235, 0.5); /* brand-border-gray */
+            border: 1px solid rgba(229, 231, 235, 0.8);
             border-radius: 1rem;
-            padding: 2.5rem 1.5rem 2rem 1.5rem; /* Increased top padding slightly to prevent ring cutoff */
+            padding: 2rem 1.5rem;
             transition: all 0.4s ease;
-            overflow: hidden;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
         .service-card-mini:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(11, 61, 145, 0.06);
-            border-color: rgba(11, 61, 145, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(11, 61, 145, 0.08);
+            border-color: rgba(11, 61, 145, 0.2);
         }
         .mini-icon-box {
-            position: relative;
-            z-index: 10;
-            width: 52px;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.9);
+            width: 56px;
+            height: 56px;
+            background: rgba(11, 61, 145, 0.05);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: #0B3D91;
-            box-shadow: 0 4px 12px rgba(11, 61, 145, 0.08);
             transition: all 0.4s ease;
-            margin-bottom: 1.5rem;
-        }
-        
-        /* Inner Soft Glow Pill */
-        .mini-icon-box::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 12px);
-            height: calc(100% + 12px);
-            border-radius: 50%;
-            background: rgba(11, 61, 145, 0.03);
-            border: 1px solid rgba(11, 61, 145, 0.06);
-            translate: -50% -50%;
-            z-index: -2;
-            transition: all 0.4s ease;
-        }
-        
-        /* Rotating Orbit Ring */
-        .mini-icon-box::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: calc(100% + 28px);
-            height: calc(100% + 28px);
-            border-radius: 50%;
-            border: 1px solid rgba(11, 61, 145, 0.1); /* Thin ring */
-            border-top: 1.5px solid rgba(214, 40, 40, 0.8); /* Tiny red pulse dot */
-            border-right: 1px solid rgba(11, 61, 145, 0.3); /* Soft blue glow */
-            translate: -50% -50%;
-            z-index: -1;
-            transition: all 0.4s ease;
-            animation: serviceOrbitSpin 14s linear infinite; /* Slow idle rotation */
+            margin-bottom: 1.25rem;
         }
         .service-card-mini:hover .mini-icon-box {
-            color: #D62828;
-            scale: 1.1;
-            box-shadow: 0 6px 15px rgba(214, 40, 40, 0.15);
-        }
-        .service-card-mini:hover .mini-icon-box::before {
-            background: rgba(11, 61, 145, 0.06);
-            scale: 1.05;
-        }
-        .service-card-mini:hover .mini-icon-box::after {
-            border-color: rgba(11, 61, 145, 0.2);
-            border-top-color: rgba(214, 40, 40, 1);
-            border-right-color: rgba(11, 61, 145, 0.5);
-            animation: serviceOrbitSpin 6s linear infinite; /* Faster rotation on hover */
-            scale: 1.05;
-            box-shadow: 0 0 15px rgba(11, 61, 145, 0.1); /* Soft glow increases */
+            background: #0B3D91;
+            color: #FFFFFF;
+            transform: scale(1.1);
         }
 
         /* FAQ Accordion */
@@ -489,15 +455,6 @@
         <div class="mesh-blob mesh-blob-1"></div>
         <div class="mesh-blob mesh-blob-2"></div>
         <div class="mesh-blob mesh-blob-3"></div>
-        
-        <!-- 3D Glass Rings -->
-        <div class="glass-ring glass-ring-1"></div>
-        <div class="glass-ring glass-ring-2"></div>
-        
-        <!-- 3D Glass Spheres -->
-        <div class="glass-sphere glass-sphere-1"></div>
-        <div class="glass-sphere glass-sphere-2"></div>
-        <div class="glass-sphere glass-sphere-3"></div>
     </div>
 
     <!-- Preloader -->
@@ -509,7 +466,7 @@
     </div>
 
     <!-- Premium Sticky Header -->
-    <header id="navbar" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1280px] z-50 transition-all duration-300 py-2.5 md:py-3 px-4 lg:px-5 bg-white/95 rounded-full border border-brand-border-gray shadow-sm">
+    <header id="navbar" class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] max-w-[1280px] z-50 transition-all duration-300 py-2.5 md:py-3 px-4 lg:px-5 bg-white/95 backdrop-blur-md rounded-full border border-brand-border-gray shadow-sm">
         <div class="w-full flex justify-between items-center relative gap-2 md:gap-4">
             <!-- Logo -->
             <a href="#" class="font-extrabold tracking-wide z-10 relative flex items-center gap-1.5 md:gap-2 flex-shrink-0">
@@ -521,7 +478,7 @@
             </a>
             
             <!-- Desktop Nav -->
-            <nav class="hidden xl:flex items-center justify-center gap-0.5 flex-1">
+            <nav class="hidden xl:flex items-center justify-center gap-1 flex-1">
                 <a href="#" class="nav-item active font-medium text-[13px]">Home</a>
                 <a href="#about" class="nav-item font-medium text-[13px]">About</a>
                 <a href="#jobs" class="nav-item font-medium text-[13px]">Gulf Jobs</a>
@@ -535,7 +492,7 @@
 
             <!-- CTA & Mobile Toggle -->
             <div class="flex items-center gap-1.5 sm:gap-2 md:gap-3 z-10 relative flex-shrink-0">
-                <button onclick="openApplyModal()" class="nav-apply-btn bg-brand-primary-blue text-white px-4 md:px-6 py-2 font-bold rounded-xl shadow-md hover:bg-brand-deep-navy hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[11px] md:text-xs whitespace-nowrap">Apply Now</button>
+                <button onclick="openApplyModal()" class="nav-apply-btn radar-btn bg-brand-primary-blue text-white px-4 md:px-6 py-2 font-bold rounded-xl shadow-md hover:bg-brand-deep-navy hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[11px] md:text-xs whitespace-nowrap">Apply Now</button>
                 <button class="xl:hidden text-brand-red-accent text-xl md:text-2xl focus:outline-none ml-0.5 md:ml-1" id="mobile-menu-btn" aria-label="Toggle navigation">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -565,6 +522,19 @@
         <div class="absolute inset-0 z-0 opacity-[0.03]" style="background-image: radial-gradient(#0B3D91 2px, transparent 2px); background-size: 40px 40px;"></div>
         <div class="absolute inset-0 z-0 opacity-[0.04] bg-[url('https://upload.wikimedia.org/wikipedia/commons/a/a9/World_Map_Blank.svg')] bg-center bg-no-repeat bg-contain"></div>
 
+        <!-- NEW: Lightweight Decorative Elements (Desktop Only) -->
+        <div class="hero-radar-decor hidden lg:block"></div>
+        <svg class="hero-connection-lines hidden lg:block" viewBox="0 0 800 600" preserveAspectRatio="none">
+            <!-- Minimalist India to Gulf style curved paths -->
+            <path class="hero-line hero-line-1" d="M 750,550 C 600,450 300,200 100,150" />
+            <path class="hero-line hero-line-2" d="M 800,600 C 650,500 250,250 50,200" />
+            <path class="hero-line hero-line-3" d="M 700,500 C 550,400 350,150 150,100" />
+            <!-- Tiny static destination pulses -->
+            <circle cx="100" cy="150" r="4" fill="rgba(214, 40, 40, 0.4)" />
+            <circle cx="50" cy="200" r="3" fill="rgba(11, 61, 145, 0.3)" />
+            <circle cx="150" cy="100" r="3" fill="rgba(11, 61, 145, 0.3)" />
+        </svg>
+
         <div class="container mx-auto max-w-7xl relative z-10 flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12 w-full">
             
             <!-- Left Content: Typography & Buttons -->
@@ -592,10 +562,10 @@
                 </p>
                 
                 <div class="hero-buttons flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 justify-center lg:justify-start w-full">
-                    <button onclick="openApplyModal()" class="w-full sm:w-auto bg-brand-primary-blue text-white px-8 py-3.5 font-bold rounded-xl shadow-md hover:bg-brand-deep-navy hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                    <button onclick="openApplyModal()" class="radar-btn w-full sm:w-auto bg-brand-primary-blue text-white px-8 py-3.5 font-bold rounded-xl shadow-md hover:bg-brand-deep-navy hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
                         <i class="fa-solid fa-briefcase"></i> Apply for Gulf Jobs
                     </button>
-                    <a href="#contact" class="w-full sm:w-auto bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue px-8 py-3.5 font-bold rounded-xl hover:bg-brand-primary-blue/5 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <a href="#contact" class="radar-btn w-full sm:w-auto bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue px-8 py-3.5 font-bold rounded-xl hover:bg-brand-primary-blue/5 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2">
                         <i class="fa-regular fa-envelope"></i> Contact Us
                     </a>
                 </div>
@@ -603,21 +573,21 @@
 
             <!-- Right Content: Static Cards -->
             <div class="w-full lg:w-1/2 xl:w-[40%] relative h-auto mt-10 lg:mt-0 hidden md:flex flex-col gap-4 justify-center items-end">
-                <div class="bg-white/80 backdrop-blur-md border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20">
+                <div class="hero-floating-badge hero-floating-badge-1 bg-white/95 border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20">
                     <div class="w-12 h-12 rounded-full bg-brand-primary-blue/10 flex items-center justify-center text-brand-primary-blue text-xl flex-shrink-0"><i class="fa-solid fa-users"></i></div>
                     <div class="text-left">
                         <div class="text-xs text-brand-dark-text font-medium">Expert Team</div>
                         <div class="text-sm font-bold text-brand-deep-navy">Overseas Hiring</div>
                     </div>
                 </div>
-                <div class="bg-white/80 backdrop-blur-md border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20 -translate-x-8">
+                <div class="hero-floating-badge hero-floating-badge-2 bg-white/95 border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20 -translate-x-8">
                     <div class="w-12 h-12 rounded-full bg-brand-red-accent/10 flex items-center justify-center text-brand-red-accent text-xl flex-shrink-0"><i class="fa-solid fa-briefcase"></i></div>
                     <div class="text-left">
                         <div class="text-xs text-brand-dark-text font-medium">Available Now</div>
                         <div class="text-sm font-bold text-brand-deep-navy">Gulf Jobs</div>
                     </div>
                 </div>
-                <div class="bg-white/80 backdrop-blur-md border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20">
+                <div class="hero-floating-badge hero-floating-badge-3 bg-white/95 border border-brand-border-gray/50 p-4 rounded-xl shadow-sm flex items-center gap-4 w-64 z-20">
                     <div class="w-12 h-12 rounded-full bg-[#25D366]/10 flex items-center justify-center text-[#25D366] text-xl flex-shrink-0"><i class="fa-solid fa-check-circle"></i></div>
                     <div class="text-left">
                         <div class="text-xs text-brand-dark-text font-medium">Fast Processing</div>
@@ -629,7 +599,7 @@
     </section>
 
     <!-- Stats Counters -->
-    <section class="py-24 bg-white/60 backdrop-blur-xl border-y border-brand-border-gray/30">
+    <section class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
                 <i class="fa-solid fa-user-check text-4xl text-brand-primary-blue mb-4"></i>
@@ -655,7 +625,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 bg-white/40 backdrop-blur-lg">
+    <section id="about" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="relative h-[300px] md:h-[400px] w-full rounded-2xl bg-gradient-to-br from-brand-light-gray to-white border border-brand-border-gray/50 flex items-center justify-center overflow-hidden shadow-sm">
@@ -676,8 +646,8 @@
                     Aiwa International Manpower is a premier government-approved recruitment agency dedicated to connecting talented Indian professionals with leading companies in the Gulf region. We bridge the gap between ambition and opportunity.
                     </p>
                     <div class="space-y-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+                        <div class="flex items-start gap-4 group">
+                            <div class="radar-icon w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
                                 <i class="fa-solid fa-bullseye"></i>
                             </div>
                             <div>
@@ -685,8 +655,8 @@
                                 <p class="text-brand-dark-text">To provide ethical, transparent, and efficient recruitment services that empower job seekers and fulfill the manpower needs of our international clients.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+                        <div class="flex items-start gap-4 group">
+                            <div class="radar-icon w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
                                 <i class="fa-solid fa-lightbulb"></i>
                             </div>
                             <div>
@@ -694,8 +664,8 @@
                                 <p class="text-brand-dark-text">To be the most trusted and respected manpower consultancy, known for our commitment to quality, integrity, and candidate success.</p>
                             </div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
+                        <div class="flex items-start gap-4 group">
+                            <div class="radar-icon w-12 h-12 bg-brand-red-accent/10 text-brand-red-accent rounded-xl flex items-center justify-center flex-shrink-0 text-xl">
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <div>
@@ -710,7 +680,7 @@
     </section>
 
     <!-- Futuristic Radar Services Section -->
-    <section id="services" class="py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
+    <section id="services" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 text-center relative z-10">
             <div class="text-center mb-20">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight uppercase">Our Premier Services</h2>
@@ -795,7 +765,7 @@
     </section>
 
     <!-- Trusted Employers Section -->
-    <section id="employers" class="py-24 bg-white/40 backdrop-blur-lg relative overflow-hidden border-t border-brand-border-gray/30">
+    <section id="employers" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg relative overflow-hidden border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 text-center relative z-10 mb-12">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy">Our Trusted Gulf Employers</h2>
             <p class="text-brand-dark-text mb-4">Connecting talented professionals with leading Gulf companies across multiple industries.</p>
@@ -809,7 +779,7 @@
             <div class="absolute top-0 right-0 w-16 md:w-48 h-full bg-gradient-to-l from-brand-pure-white to-transparent z-10 pointer-events-none"></div>
 
             <!-- Scrolling Track -->
-            <div class="animate-marquee flex items-center py-8">
+            <div class="animate-marquee flex items-center py-8 gap-8">
                 
                 <!-- Duplicate Group 1 -->
                 <div class="flex">
@@ -949,7 +919,7 @@
     </section>
 
     <!-- Gulf Jobs Section -->
-    <section id="jobs" class="py-24 bg-white/60 backdrop-blur-xl relative border-y border-brand-border-gray/30">
+    <section id="jobs" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl relative border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
                 <span class="bg-brand-primary-blue/10 text-brand-primary-blue px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-primary-blue/20 shadow-sm mb-4 inline-block">Apply For Jobs</span>
@@ -958,12 +928,12 @@
                 <div class="h-1 w-24 bg-brand-red-accent mx-auto rounded-full mb-8"></div>
                 
                 <div class="flex flex-wrap justify-center gap-3 mb-8" id="job-filters">
-                    <button class="job-filter-btn active px-6 py-2 rounded-full bg-brand-primary-blue text-white font-bold text-sm shadow-md transition-all" data-filter="all">All Jobs</button>
-                    <button class="job-filter-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Transport">Transport</button>
-                    <button class="job-filter-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Construction">Construction</button>
-                    <button class="job-filter-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Hospitality">Hospitality</button>
-                    <button class="job-filter-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Healthcare">Healthcare</button>
-                    <button class="job-filter-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Security">Security</button>
+                    <button class="job-filter-btn radar-btn active px-6 py-2 rounded-full bg-brand-primary-blue text-white font-bold text-sm shadow-md transition-all" data-filter="all">All Jobs</button>
+                    <button class="job-filter-btn radar-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Transport">Transport</button>
+                    <button class="job-filter-btn radar-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Construction">Construction</button>
+                    <button class="job-filter-btn radar-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Hospitality">Hospitality</button>
+                    <button class="job-filter-btn radar-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Healthcare">Healthcare</button>
+                    <button class="job-filter-btn radar-btn px-6 py-2 rounded-full bg-white border border-brand-border-gray text-brand-deep-navy font-bold text-sm hover:bg-brand-light-gray transition-all" data-filter="Security">Security</button>
                 </div>
             </div>
 
@@ -974,7 +944,7 @@
     </section>
 
     <!-- Recruitment Process Section -->
-    <section id="process" class="py-24 bg-white/40 backdrop-blur-lg border-b border-brand-border-gray/30">
+    <section id="process" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="bg-brand-primary-blue/10 text-brand-primary-blue px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-primary-blue/20 shadow-sm mb-4 inline-block">For Job Seekers</span>
@@ -985,42 +955,42 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">1</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">1</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Registration</h3>
                     <p class="text-sm text-brand-dark-text">Submit your profile and upload your CV to our international candidate database.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">2</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">2</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">CV Screening</h3>
                     <p class="text-sm text-brand-dark-text">Our experts review and format your CV to meet Gulf employer standards.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">3</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">3</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Interview Scheduling</h3>
                     <p class="text-sm text-brand-dark-text">We match you with suitable jobs and schedule your client interviews.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">4</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">4</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Documentation</h3>
                     <p class="text-sm text-brand-dark-text">Upon selection, we assist in organizing and attesting all required documents.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">5</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">5</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Medical</h3>
                     <p class="text-sm text-brand-dark-text">Guidance for completing your mandatory GAMCA medical fitness tests.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">6</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">6</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Visa Processing</h3>
                     <p class="text-sm text-brand-dark-text">We handle visa stamping, labor approvals, and immigration clearances.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">7</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">7</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Ticketing</h3>
                     <p class="text-sm text-brand-dark-text">Flight booking and itinerary planning coordinated with your new employer.</p>
                 </div>
                 <div class="bg-white/90 rounded-2xl p-6 shadow-sm border border-brand-border-gray relative hover:-translate-y-2 transition-all group">
-                    <div class="w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">8</div>
+                    <div class="radar-icon w-12 h-12 bg-brand-primary-blue text-white rounded-full flex items-center justify-center text-xl font-bold mb-4 group-hover:scale-110 transition-transform shadow-md">8</div>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-2">Departure</h3>
                     <p class="text-sm text-brand-dark-text">Pre-departure orientation and continuous support until you safely reach the Gulf.</p>
                 </div>
@@ -1029,7 +999,7 @@
     </section>
 
     <!-- Interview Guidance Section -->
-    <section id="interview-guidance" class="py-24 bg-white/60 backdrop-blur-xl border-b border-brand-border-gray/30">
+    <section id="interview-guidance" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Interview Guidance</h2>
@@ -1038,8 +1008,8 @@
             </div>
             
             <div class="grid lg:grid-cols-3 gap-8">
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
-                    <i class="fa-solid fa-shirt text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
+                    <i class="radar-icon fa-solid fa-shirt text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Dress Code</h3>
                     <p class="text-sm text-brand-dark-text mb-4">First impressions matter. Gulf employers expect formal, neat, and well-groomed appearances.</p>
                     <ul class="text-sm text-brand-dark-text space-y-2">
@@ -1048,8 +1018,8 @@
                         <li><i class="fa-solid fa-check text-[#25D366] mr-2"></i> Professional footwear</li>
                     </ul>
                 </div>
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
-                    <i class="fa-solid fa-comments text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
+                    <i class="radar-icon fa-solid fa-comments text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Communication</h3>
                     <p class="text-sm text-brand-dark-text mb-4">Clear communication builds trust. Speak confidently, maintain eye contact, and listen carefully.</p>
                     <ul class="text-sm text-brand-dark-text space-y-2">
@@ -1058,8 +1028,8 @@
                         <li><i class="fa-solid fa-check text-[#25D366] mr-2"></i> Ask clarifying questions</li>
                     </ul>
                 </div>
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
-                    <i class="fa-solid fa-clipboard-question text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray">
+                    <i class="radar-icon fa-solid fa-clipboard-question text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Common Questions</h3>
                     <p class="text-sm text-brand-dark-text mb-4">Be ready to discuss your past experience and technical skills.</p>
                     <ul class="text-sm text-brand-dark-text space-y-2">
@@ -1073,7 +1043,7 @@
     </section>
 
     <!-- Visa Assistance Section -->
-    <section id="visa-assistance" class="py-24 bg-white/40 backdrop-blur-lg border-b border-brand-border-gray/30">
+    <section id="visa-assistance" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -1081,22 +1051,22 @@
                     <p class="text-brand-dark-text mb-6 text-lg">Navigating Gulf visa procedures can be complex. Our dedicated team ensures a hassle-free immigration process.</p>
                     
                     <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-passport"></i></div>
+                        <div class="group flex gap-4">
+                            <div class="radar-icon w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-passport"></i></div>
                             <div>
                                 <h4 class="font-bold text-brand-deep-navy">Work Permit Guidance</h4>
                                 <p class="text-sm text-brand-dark-text">We coordinate with your employer to secure initial labor approvals and E-Wakalas.</p>
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-file-signature"></i></div>
+                        <div class="group flex gap-4">
+                            <div class="radar-icon w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-file-signature"></i></div>
                             <div>
                                 <h4 class="font-bold text-brand-deep-navy">Document Attestation</h4>
                                 <p class="text-sm text-brand-dark-text">Assistance with HRD, MEA, and Embassy attestation for educational certificates.</p>
                             </div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-stamp"></i></div>
+                        <div class="group flex gap-4">
+                            <div class="radar-icon w-12 h-12 bg-brand-primary-blue/10 text-brand-primary-blue rounded-xl flex items-center justify-center flex-shrink-0 text-xl"><i class="fa-solid fa-stamp"></i></div>
                             <div>
                                 <h4 class="font-bold text-brand-deep-navy">Visa Stamping</h4>
                                 <p class="text-sm text-brand-dark-text">Complete management of embassy submissions for final visa stamping.</p>
@@ -1114,14 +1084,14 @@
                         <li class="flex items-center gap-3"><i class="fa-regular fa-square-check text-brand-red-accent text-xl"></i> Educational & Experience Certificates</li>
                         <li class="flex items-center gap-3"><i class="fa-regular fa-square-check text-brand-red-accent text-xl"></i> GAMCA Medical Fitness Report</li>
                     </ul>
-                    <button onclick="openApplyModal()" class="w-full mt-8 bg-brand-red-accent text-white py-3 rounded-xl font-bold hover:bg-brand-red-glow transition shadow-md">Start Application</button>
+                    <button onclick="openApplyModal()" class="radar-btn w-full mt-8 bg-brand-red-accent text-white py-3 rounded-xl font-bold hover:bg-brand-red-glow transition shadow-md">Start Application</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Enterprise: Interview Management System & Walk-ins -->
-    <section id="drives" class="py-24 bg-white/40 backdrop-blur-lg border-b border-brand-border-gray/30">
+    <section id="drives" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="bg-brand-red-accent/10 text-brand-red-accent px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-red-accent/20 shadow-sm mb-4 inline-block">Live Recruitment</span>
@@ -1140,7 +1110,7 @@
                     <!-- Company Logo Side -->
                     <div class="md:w-2/5 bg-brand-light-gray/50 border-b md:border-b-0 md:border-r border-brand-border-gray/50 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
                         <div class="absolute inset-0 bg-brand-primary-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-20 h-20 bg-white rounded-full border-2 border-brand-border-gray flex items-center justify-center text-brand-primary-blue text-3xl shadow-sm mb-4 relative z-10">
+                        <div class="radar-icon w-20 h-20 bg-white rounded-full border-2 border-brand-border-gray flex items-center justify-center text-brand-primary-blue text-3xl shadow-sm mb-4 relative z-10">
                             <i class="fa-solid fa-oil-well"></i>
                         </div>
                         <h3 class="font-extrabold text-xl text-brand-deep-navy relative z-10">Aramco Projects</h3>
@@ -1170,8 +1140,8 @@
                         </div>
                         
                         <div class="flex flex-wrap gap-3">
-                            <button onclick="openApplyModal()" class="flex-1 min-w-[120px] bg-brand-primary-blue text-white py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition text-sm shadow-md flex items-center justify-center gap-2"><i class="fa-regular fa-calendar-plus"></i> Apply Now</button>
-                            <a href="https://wa.me/919580306440" target="_blank" class="flex-1 min-w-[120px] bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition text-sm flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Share</a>
+                            <button onclick="openApplyModal()" class="radar-btn flex-1 min-w-[120px] bg-brand-primary-blue text-white py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition text-sm shadow-md flex items-center justify-center gap-2"><i class="fa-regular fa-calendar-plus"></i> Apply Now</button>
+                            <a href="https://wa.me/919580306440" target="_blank" class="radar-btn flex-1 min-w-[120px] bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition text-sm flex items-center justify-center gap-2"><i class="fa-brands fa-whatsapp text-lg"></i> Share</a>
                         </div>
                     </div>
                 </div>
@@ -1181,7 +1151,7 @@
                     <!-- Company Logo Side -->
                     <div class="md:w-2/5 bg-brand-light-gray/50 border-b md:border-b-0 md:border-r border-brand-border-gray/50 p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
                         <div class="absolute inset-0 bg-brand-primary-blue/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-20 h-20 bg-white rounded-full border-2 border-brand-border-gray flex items-center justify-center text-brand-primary-blue text-3xl shadow-sm mb-4 relative z-10">
+                        <div class="radar-icon w-20 h-20 bg-white rounded-full border-2 border-brand-border-gray flex items-center justify-center text-brand-primary-blue text-3xl shadow-sm mb-4 relative z-10">
                             <i class="fa-solid fa-hotel"></i>
                         </div>
                         <h3 class="font-extrabold text-xl text-brand-deep-navy relative z-10">Hilton Group</h3>
@@ -1211,7 +1181,7 @@
                         </div>
                         
                         <div class="flex flex-wrap gap-3">
-                            <button onclick="openApplyModal()" class="flex-1 min-w-[120px] bg-brand-primary-blue text-white py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition text-sm shadow-md flex items-center justify-center gap-2"><i class="fa-regular fa-id-badge"></i> Register Walk-in</button>
+                            <button onclick="openApplyModal()" class="radar-btn flex-1 min-w-[120px] bg-brand-primary-blue text-white py-3 rounded-xl font-bold hover:bg-brand-deep-navy transition text-sm shadow-md flex items-center justify-center gap-2"><i class="fa-regular fa-id-badge"></i> Register Walk-in</button>
                         </div>
                     </div>
                 </div>
@@ -1220,7 +1190,7 @@
     </section>
 
     <!-- Employer: Hire Candidates -->
-    <section id="hire-candidates" class="py-24 bg-brand-deep-navy relative overflow-hidden border-t border-brand-border-gray/30">
+    <section id="hire-candidates" class="py-16 md:py-24 bg-brand-deep-navy relative overflow-hidden border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
                 <span class="bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-white/20 shadow-sm mb-4 inline-block">For Employers</span>
@@ -1231,7 +1201,7 @@
 
             <div class="bg-white rounded-2xl p-8 md:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8 max-w-6xl mx-auto">
                 <div class="lg:w-1/2">
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-brand-deep-navy mb-4">Submit a Hiring Request</h3>
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-brand-deep-navy mb-4">Partner With Us</h3>
                     <p class="text-brand-dark-text mb-6 text-lg">Let us handle your staffing needs. We recruit for Construction, Oil & Gas, Healthcare, Hospitality, IT, and more.</p>
                     <ul class="space-y-4 mb-6">
                         <li class="flex items-center gap-3 text-brand-dark-text font-bold"><i class="fa-solid fa-users-viewfinder text-brand-primary-blue text-xl"></i> Global Talent Sourcing</li>
@@ -1239,38 +1209,35 @@
                         <li class="flex items-center gap-3 text-brand-dark-text font-bold"><i class="fa-solid fa-bolt text-[#25D366] text-xl"></i> Fast Deployment</li>
                     </ul>
                 </div>
-                <div class="lg:w-1/2 w-full bg-brand-light-gray rounded-xl p-6 border border-brand-border-gray">
-                    <form class="space-y-4">
-                        <input type="text" placeholder="Company Name" class="w-full bg-white border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue transition text-sm shadow-sm" required>
-                        <input type="email" placeholder="Corporate Email" class="w-full bg-white border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue transition text-sm shadow-sm" required>
-                        <input type="text" placeholder="Industry (e.g. Oil & Gas)" class="w-full bg-white border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue transition text-sm shadow-sm" required>
-                        <textarea placeholder="Manpower Requirements (e.g., 50 Electricians, 20 Nurses)" rows="4" class="w-full bg-white border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue transition text-sm shadow-sm resize-none" required></textarea>
-                        <button type="button" class="w-full bg-brand-primary-blue text-white font-bold py-3.5 rounded-xl shadow-md hover:bg-[#061B4A] transition-all duration-300">Request Hiring Proposal</button>
-                    </form>
+                <div class="group lg:w-1/2 w-full bg-brand-light-gray rounded-2xl p-8 border border-brand-border-gray text-center flex flex-col justify-center items-center">
+                    <i class="radar-icon fa-solid fa-briefcase text-5xl text-brand-primary-blue mb-4"></i>
+                    <h4 class="text-xl font-bold text-brand-deep-navy mb-2">Ready to Build Your Team?</h4>
+                    <p class="text-brand-dark-text mb-6">Connect with our employer relations team to discuss your customized manpower requirements and get a detailed proposal.</p>
+                    <button onclick="document.getElementById('unified-service').value='Employer Hiring'; window.location.href='#contact';" class="radar-btn w-full bg-brand-primary-blue text-white font-bold py-4 rounded-xl shadow-[0_4px_15px_rgba(11,61,145,0.2)] hover:shadow-[0_6px_20px_rgba(11,61,145,0.3)] hover:-translate-y-0.5 transition-all duration-300">Contact Employer Support</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Employer: HR Solutions -->
-    <section id="hr-solutions" class="py-24 bg-white/60 backdrop-blur-xl border-y border-brand-border-gray/30">
+    <section id="hr-solutions" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Comprehensive HR Solutions</h2>
             <p class="text-brand-dark-text mb-12 max-w-2xl mx-auto text-lg">We offer end-to-end recruitment outsourcing and talent acquisition services for Gulf enterprises.</p>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
-                    <i class="fa-solid fa-handshake-angle text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
+                    <i class="radar-icon fa-solid fa-handshake-angle text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Contract Staffing</h3>
                     <p class="text-sm text-brand-dark-text">Flexible workforce solutions for short-term projects and seasonal demands. We handle payroll and compliance.</p>
                 </div>
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
-                    <i class="fa-solid fa-magnifying-glass-chart text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
+                    <i class="radar-icon fa-solid fa-magnifying-glass-chart text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Talent Acquisition</h3>
                     <p class="text-sm text-brand-dark-text">Targeted executive search and headhunting for mid to senior-level management roles across various sectors.</p>
                 </div>
-                <div class="bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
-                    <i class="fa-solid fa-chart-line text-4xl text-brand-primary-blue mb-4"></i>
+                <div class="group bg-white/90 p-8 rounded-2xl shadow-sm border border-brand-border-gray hover:shadow-lg transition-all hover:-translate-y-2">
+                    <i class="radar-icon fa-solid fa-chart-line text-4xl text-brand-primary-blue mb-4"></i>
                     <h3 class="text-xl font-bold text-brand-deep-navy mb-3">Recruitment Outsourcing</h3>
                     <p class="text-sm text-brand-dark-text">Complete management of your hiring process, improving efficiency and reducing time-to-hire.</p>
                 </div>
@@ -1279,7 +1246,7 @@
     </section>
 
     <!-- Employer: Bulk Hiring & Workforce Supply -->
-    <section id="bulk-hiring" class="py-24 bg-brand-light-gray backdrop-blur-xl border-b border-brand-border-gray/30">
+    <section id="bulk-hiring" class="py-16 md:py-24 bg-brand-light-gray backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div id="workforce-supply">
@@ -1295,20 +1262,20 @@
                 </div>
                 
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
-                        <i class="fa-solid fa-helmet-safety text-3xl text-brand-primary-blue mb-3"></i>
+                    <div class="group bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
+                        <i class="radar-icon fa-solid fa-helmet-safety text-3xl text-brand-primary-blue mb-3"></i>
                         <h4 class="font-bold text-brand-deep-navy">Construction</h4>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
-                        <i class="fa-solid fa-oil-well text-3xl text-brand-primary-blue mb-3"></i>
+                    <div class="group bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
+                        <i class="radar-icon fa-solid fa-oil-well text-3xl text-brand-primary-blue mb-3"></i>
                         <h4 class="font-bold text-brand-deep-navy">Oil & Gas</h4>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
-                        <i class="fa-solid fa-utensils text-3xl text-brand-primary-blue mb-3"></i>
+                    <div class="group bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
+                        <i class="radar-icon fa-solid fa-utensils text-3xl text-brand-primary-blue mb-3"></i>
                         <h4 class="font-bold text-brand-deep-navy">Hospitality</h4>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
-                        <i class="fa-solid fa-truck-fast text-3xl text-brand-primary-blue mb-3"></i>
+                    <div class="group bg-white p-6 rounded-2xl shadow-sm border border-brand-border-gray text-center hover:shadow-md transition-shadow">
+                        <i class="radar-icon fa-solid fa-truck-fast text-3xl text-brand-primary-blue mb-3"></i>
                         <h4 class="font-bold text-brand-deep-navy">Logistics</h4>
                     </div>
                 </div>
@@ -1317,7 +1284,7 @@
     </section>
     
     <!-- Countries Section -->
-    <section id="countries" class="py-24 bg-white/60 backdrop-blur-xl border-y border-brand-border-gray/30">
+    <section id="countries" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Countries We Recruit For</h2>
@@ -1332,7 +1299,7 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">UAE</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Construction, Hospitality, IT, Healthcare, Retail.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
                 <div class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-border-gray/50 border-t-4 border-t-brand-primary-blue group">
                     <div class="flex items-center gap-4 mb-4">
@@ -1340,7 +1307,7 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">Saudi Arabia</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Oil & Gas, Construction, FMCG, Project Management.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
                 <div class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-border-gray/50 border-t-4 border-t-brand-primary-blue group">
                     <div class="flex items-center gap-4 mb-4">
@@ -1348,7 +1315,7 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">Qatar</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Hospitality, Construction, Aviation, Facility Management.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
                 <div class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-border-gray/50 border-t-4 border-t-brand-primary-blue group">
                     <div class="flex items-center gap-4 mb-4">
@@ -1356,7 +1323,7 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">Kuwait</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Retail, Logistics, Automotive, Heavy Vehicle Drivers.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
                 <div class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-border-gray/50 border-t-4 border-t-brand-primary-blue group">
                     <div class="flex items-center gap-4 mb-4">
@@ -1364,7 +1331,7 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">Oman</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Healthcare, Engineering, Tourism, Medical Staff.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
                 <div class="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-sm hover:shadow-lg hover:-translate-y-2 transition-all duration-300 border border-brand-border-gray/50 border-t-4 border-t-brand-primary-blue group">
                     <div class="flex items-center gap-4 mb-4">
@@ -1372,14 +1339,14 @@
                         <h3 class="text-2xl font-bold text-brand-deep-navy">Bahrain</h3>
                     </div>
                     <p class="text-sm text-brand-dark-text mb-4">Industries: Banking, Security, Services, Skilled Labor.</p>
-                    <a href="#jobs" class="font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
+                    <a href="#jobs" class="radar-link font-bold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors flex items-center gap-2">View Jobs <i class="fa-solid fa-arrow-right text-sm"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Enterprise: Recruitment Service Packages -->
-    <section id="packages" class="py-24 bg-white/40 backdrop-blur-lg border-b border-brand-border-gray/30">
+    <section id="packages" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Recruitment Assistance Plans</h2>
@@ -1400,7 +1367,7 @@
                         <li class="flex items-start gap-3 text-sm text-brand-dark-text font-medium"><i class="fa-solid fa-check text-brand-red-accent mt-1"></i> WhatsApp Support</li>
                         <li class="flex items-start gap-3 text-sm text-brand-dark-text font-medium"><i class="fa-solid fa-check text-brand-red-accent mt-1"></i> Initial Guidance</li>
                     </ul>
-                    <button onclick="openConsultationModal('Basic Registration')" class="w-full bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3.5 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition-colors relative z-10">Get Started</button>
+                    <button onclick="document.getElementById('unified-service').value='Job Application'; window.location.href='#contact';" class="radar-btn w-full bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3.5 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition-colors relative z-10">Get Started</button>
                 </div>
 
                 <!-- Package 2: Interview Assistance (Highlighted) -->
@@ -1418,7 +1385,7 @@
                         <li class="flex items-start gap-3 text-sm text-white font-medium"><i class="fa-solid fa-check-circle text-brand-red-glow text-lg mt-0.5"></i> Interview Preparation</li>
                         <li class="flex items-start gap-3 text-sm text-white font-medium"><i class="fa-solid fa-check-circle text-brand-red-glow text-lg mt-0.5"></i> Recruitment Support Team</li>
                     </ul>
-                    <button onclick="openConsultationModal('Interview Assistance')" class="w-full bg-brand-red-accent text-white py-4 rounded-xl font-bold hover:bg-brand-red-glow transition shadow-[0_4px_15px_rgba(214,40,40,0.4)] relative z-10 text-lg group-hover:-translate-y-1">Book Consultation</button>
+                    <button onclick="document.getElementById('unified-service').value='Interview Booking'; window.location.href='#contact';" class="radar-btn w-full bg-brand-red-accent text-white py-4 rounded-xl font-bold hover:bg-brand-red-glow transition shadow-[0_4px_15px_rgba(214,40,40,0.4)] relative z-10 text-lg group-hover:-translate-y-1">Book Consultation</button>
                 </div>
 
                 <!-- Package 3: Complete Gulf Placement -->
@@ -1435,7 +1402,7 @@
                         <li class="flex items-start gap-3 text-sm text-brand-dark-text font-medium"><i class="fa-solid fa-check text-brand-red-accent mt-1"></i> Departure Assistance</li>
                         <li class="flex items-start gap-3 text-sm text-brand-dark-text font-medium"><i class="fa-solid fa-check text-brand-red-accent mt-1"></i> Priority Processing</li>
                     </ul>
-                    <button onclick="openConsultationModal('Complete Placement Support')" class="w-full bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3.5 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition-colors relative z-10">Talk to Recruitment Team</button>
+                    <button onclick="document.getElementById('unified-service').value='Visa Assistance'; window.location.href='#contact';" class="radar-btn w-full bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-3.5 rounded-xl font-bold hover:bg-brand-primary-blue/5 transition-colors relative z-10">Talk to Recruitment Team</button>
                 </div>
             </div>
             
@@ -1471,7 +1438,7 @@
     </div>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 bg-white/60 backdrop-blur-xl relative overflow-hidden border-y border-brand-border-gray/30">
+    <section id="testimonials" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl relative overflow-hidden border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 text-center relative z-10">
             <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Success Stories from Across India</h2>
             <p class="text-brand-dark-text mb-4 max-w-2xl mx-auto text-lg">Candidates from different states of India trusted Aiwa International Manpower for Gulf opportunities.</p>
@@ -1873,7 +1840,7 @@
     </section>
 
     <!-- Blogs & Resources Section -->
-    <section id="blogs" class="py-24 bg-white/40 backdrop-blur-lg border-y border-brand-border-gray/30">
+    <section id="blogs" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="bg-brand-red-accent/10 text-brand-red-accent px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-red-accent/20 shadow-sm mb-4 inline-block">Knowledge Hub</span>
@@ -1894,7 +1861,7 @@
                         <div class="text-xs text-brand-dark-text/60 font-medium mb-2"><i class="fa-regular fa-calendar mr-1"></i> May 10, 2026</div>
                         <h3 class="text-xl font-bold text-brand-deep-navy mb-3 group-hover:text-brand-primary-blue transition-colors">UAE Work Visa Process: A Complete Guide for 2026</h3>
                         <p class="text-sm text-brand-dark-text mb-6 flex-grow">Understand the step-by-step process of acquiring a UAE work visa, including required documents, medical tests, and processing times.</p>
-                        <a href="#" onclick="openBlog(1); return false;" class="text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#" onclick="openBlog(1); return false;" class="radar-link text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
                 
@@ -1909,7 +1876,7 @@
                         <div class="text-xs text-brand-dark-text/60 font-medium mb-2"><i class="fa-regular fa-calendar mr-1"></i> April 28, 2026</div>
                         <h3 class="text-xl font-bold text-brand-deep-navy mb-3 group-hover:text-brand-primary-blue transition-colors">How to Ace Your Gulf Client Interview</h3>
                         <p class="text-sm text-brand-dark-text mb-6 flex-grow">Top strategies to prepare for international client interviews. Learn what Gulf employers specifically look for in candidates.</p>
-                        <a href="#" onclick="openBlog(2); return false;" class="text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#" onclick="openBlog(2); return false;" class="radar-link text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
 
@@ -1924,7 +1891,7 @@
                         <div class="text-xs text-brand-dark-text/60 font-medium mb-2"><i class="fa-regular fa-calendar mr-1"></i> April 15, 2026</div>
                         <h3 class="text-xl font-bold text-brand-deep-navy mb-3 group-hover:text-brand-primary-blue transition-colors">Highest Paying Jobs in Saudi Arabia Right Now</h3>
                         <p class="text-sm text-brand-dark-text mb-6 flex-grow">Explore the most in-demand sectors in KSA resulting from Vision 2030, and the expected salary ranges for skilled professionals.</p>
-                        <a href="#" onclick="openBlog(3); return false;" class="text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#" onclick="openBlog(3); return false;" class="radar-link text-brand-red-accent font-bold text-sm inline-flex items-center gap-2 group-hover:gap-3 transition-all mt-auto">Read Full Article <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1936,15 +1903,15 @@
                     <p class="text-brand-dark-text text-sm">Get our expertly crafted templates to boost your chances.</p>
                 </div>
                 <div class="flex flex-wrap gap-3 w-full md:w-auto">
-                    <button class="flex-1 md:flex-none bg-brand-light-gray border border-brand-border-gray text-brand-deep-navy font-bold py-2.5 px-4 rounded-xl hover:bg-brand-primary-blue/5 transition-colors shadow-sm text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-file-pdf text-brand-red-accent"></i> Gulf CV Format</button>
-                    <button class="flex-1 md:flex-none bg-brand-light-gray border border-brand-border-gray text-brand-deep-navy font-bold py-2.5 px-4 rounded-xl hover:bg-brand-primary-blue/5 transition-colors shadow-sm text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-list-check text-brand-primary-blue"></i> Visa Checklist</button>
+                    <button class="radar-btn flex-1 md:flex-none bg-brand-light-gray border border-brand-border-gray text-brand-deep-navy font-bold py-2.5 px-4 rounded-xl hover:bg-brand-primary-blue/5 transition-colors shadow-sm text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-file-pdf text-brand-red-accent"></i> Gulf CV Format</button>
+                    <button class="radar-btn flex-1 md:flex-none bg-brand-light-gray border border-brand-border-gray text-brand-deep-navy font-bold py-2.5 px-4 rounded-xl hover:bg-brand-primary-blue/5 transition-colors shadow-sm text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-list-check text-brand-primary-blue"></i> Visa Checklist</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Candidate Feedback Section -->
-    <section id="feedback" class="py-24 bg-white/40 backdrop-blur-lg border-y border-brand-border-gray/30 relative">
+    <section id="feedback" class="py-16 md:py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30 relative">
         <div class="container mx-auto px-6 max-w-4xl relative z-10">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Share Your Experience</h2>
@@ -2023,7 +1990,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" id="fb-submit-btn" class="w-full bg-brand-primary-blue text-white font-bold py-4 rounded-xl shadow-md hover:bg-brand-deep-navy transition-all duration-300 flex items-center justify-center gap-2 group text-lg">
+                    <button type="submit" id="fb-submit-btn" class="radar-btn w-full bg-brand-primary-blue text-white font-bold py-4 rounded-xl shadow-md hover:bg-brand-deep-navy transition-all duration-300 flex items-center justify-center gap-2 group text-lg">
                         <span>Submit Feedback</span>
                         <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                     </button>
@@ -2036,14 +2003,14 @@
                     </div>
                     <h3 class="text-2xl font-extrabold text-brand-deep-navy mb-3">Feedback Received!</h3>
                     <p class="text-brand-dark-text mb-8 max-w-md mx-auto">Thank you for sharing your experience with Aiwa International Manpower. Your insights help us improve.</p>
-                    <button onclick="resetFeedbackForm()" class="text-brand-primary-blue font-bold hover:text-brand-red-accent transition-colors border-b-2 border-transparent hover:border-brand-red-accent pb-1">Submit Another Response</button>
+                    <button onclick="resetFeedbackForm()" class="radar-link text-brand-primary-blue font-bold hover:text-brand-red-accent transition-colors border-b-2 border-transparent hover:border-brand-red-accent pb-1">Submit Another Response</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-24 bg-white/60 backdrop-blur-xl">
+    <section id="faq" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 max-w-4xl">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Frequently Asked Questions</h2>
@@ -2116,47 +2083,166 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
-        <div class="container mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-12">
-                <div>
-                    <h2 class="text-3xl md:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Get In Touch</h2>
-                    <p class="text-brand-dark-text mb-8">Have questions or want to start your application? Contact us today. Our team is ready to assist you.</p>
-                    <form action="#" method="POST" class="space-y-4">
-                        <div class="relative">
-                            <input type="text" id="contact-name" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/20 focus:border-brand-primary-blue transition-all shadow-sm placeholder-transparent" placeholder="Your Name" required>
-                            <label for="contact-name" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Your Name</label>
+    <section id="contact" class="py-16 md:py-24 relative overflow-hidden bg-white/40 backdrop-blur-lg border-t border-brand-border-gray/30">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
+            <div class="text-center mb-16">
+                <span class="bg-brand-primary-blue/10 text-brand-primary-blue px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase border border-brand-primary-blue/20 shadow-sm mb-4 inline-block">Contact Us</span>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 text-brand-deep-navy tracking-tight">Get in Touch With Our Recruitment Team</h2>
+                <p class="text-brand-dark-text mb-4 max-w-2xl mx-auto text-lg">Connect with Aiwa International Manpower for Gulf recruitment assistance, interview coordination, and overseas hiring support.</p>
+                <div class="h-1 w-24 bg-brand-red-accent mx-auto rounded-full mt-6"></div>
+            </div>
+
+            <div class="bg-white/90 backdrop-blur-xl border border-brand-border-gray/80 rounded-3xl shadow-xl overflow-hidden relative flex flex-col lg:flex-row group">
+                
+                <!-- Shared Subtle Background Gradients -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-brand-primary-blue/5 rounded-full blur-3xl pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-brand-red-accent/5 rounded-full blur-3xl pointer-events-none transition-opacity duration-300 opacity-50 group-hover:opacity-100"></div>
+                
+                <!-- Left Side: Unified Contact Details -->
+                <div class="lg:w-[45%] xl:w-[40%] bg-gradient-to-br from-brand-light-gray/60 to-white/60 border-b lg:border-b-0 lg:border-r border-brand-border-gray/50 p-8 md:p-10 lg:p-12 relative z-10 flex flex-col justify-center">
+                    
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-brand-deep-navy mb-8">Contact Information</h3>
+                    
+                    <div class="space-y-8">
+                        <!-- Support Numbers Block -->
+                        <div class="group flex items-start gap-4 md:gap-5">
+                            <div class="radar-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-brand-border-gray flex items-center justify-center text-brand-primary-blue text-xl md:text-2xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-headset"></i></div>
+                            <div class="flex-1 w-full">
+                                <h4 class="text-xs md:text-sm font-bold text-brand-dark-text/70 uppercase tracking-widest mb-3">Support & Assistance</h4>
+                                <div class="space-y-3">
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-brand-border-gray/60 pb-2 gap-1 sm:gap-0">
+                                        <span class="text-sm font-semibold text-brand-deep-navy">Recruitment Support</span>
+                                        <a href="tel:+918545973174" class="text-sm md:text-base font-bold text-brand-primary-blue hover:text-brand-red-accent transition-colors">+91 85459 73174</a>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-brand-border-gray/60 pb-2 gap-1 sm:gap-0">
+                                        <span class="text-sm font-semibold text-brand-deep-navy">Candidate Assistance</span>
+                                        <a href="tel:+919580306440" class="text-sm md:text-base font-bold text-brand-primary-blue hover:text-brand-red-accent transition-colors">+91 95803 06440</a>
+                                    </div>
+                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-brand-border-gray/60 pb-2 gap-1 sm:gap-0">
+                                        <span class="text-sm font-semibold text-brand-deep-navy">Interview Coordination</span>
+                                        <a href="tel:+917007013655" class="text-sm md:text-base font-bold text-brand-primary-blue hover:text-brand-red-accent transition-colors">+91 70070 13655</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="relative">
-                            <input type="email" id="contact-email" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/20 focus:border-brand-primary-blue transition-all shadow-sm placeholder-transparent" placeholder="Your Email" required>
-                            <label for="contact-email" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Your Email</label>
+
+                        <!-- Email Block -->
+                        <div class="group flex items-start gap-4 md:gap-5">
+                            <div class="radar-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-brand-border-gray flex items-center justify-center text-brand-red-accent text-xl md:text-2xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-envelope-open-text"></i></div>
+                            <div class="flex-1 pt-1 md:pt-2">
+                                <h4 class="text-xs md:text-sm font-bold text-brand-dark-text/70 uppercase tracking-widest mb-1">Official Email</h4>
+                                <a href="mailto:aiwainternationalmanpower@gmail.com" class="text-sm md:text-base font-bold text-brand-deep-navy hover:text-brand-primary-blue transition-colors break-all block">aiwainternationalmanpower<wbr>@gmail.com</a>
+                            </div>
                         </div>
-                        <div class="relative">
-                            <textarea id="contact-msg" placeholder="Your Message" rows="4" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-8 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/20 focus:border-brand-primary-blue transition-all shadow-sm resize-none placeholder-transparent" required></textarea>
-                            <label for="contact-msg" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Your Message</label>
+
+                        <!-- Location Block -->
+                        <div class="group flex items-start gap-4 md:gap-5">
+                            <div class="radar-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-brand-border-gray flex items-center justify-center text-[#25D366] text-xl md:text-2xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="flex-1 pt-1 md:pt-2 group">
+                                <h4 class="text-xs md:text-sm font-bold text-brand-dark-text/70 uppercase tracking-widest mb-1">Office Location</h4>
+                                <a href="https://www.google.com/maps/search/?api=1&query=C11%20Kisan%20Bazaar%2C%20Vibhuti%20Khand%2C%20Gomti%20Nagar%2C%20Lucknow%2C%20Uttar%20Pradesh%20%E2%80%93%20226010%2C%20India" target="_blank" class="block text-sm md:text-base font-bold text-brand-deep-navy hover:text-brand-primary-blue transition-colors duration-300">
+                                    <span class="block">C11 Kisan Bazaar</span>
+                                    <span class="block">Vibhuti Khand, Gomti Nagar</span>
+                                    <span class="block">Lucknow, Uttar Pradesh – 226010</span>
+                                    <span class="block">India</span>
+                                    <span class="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-brand-red-accent group-hover:text-brand-primary-blue transition-colors">
+                                        <i class="fa-solid fa-map-marker-alt"></i> Visit Our Office
+                                    </span>
+                                </a>
+                            </div>
                         </div>
-                        <button type="submit" class="w-full bg-brand-primary-blue text-white font-bold py-4 rounded-xl hover:bg-brand-deep-navy shadow-md hover:shadow-lg transition-all duration-300">Send Message</button>
-                    </form>
+
+                        <!-- Hours Block -->
+                        <div class="group flex items-start gap-4 md:gap-5">
+                            <div class="radar-icon w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border border-brand-border-gray flex items-center justify-center text-brand-gold text-xl md:text-2xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-clock"></i></div>
+                            <div class="flex-1 pt-1 md:pt-2">
+                                <h4 class="text-xs md:text-sm font-bold text-brand-dark-text/70 uppercase tracking-widest mb-1">Working Hours</h4>
+                                <p class="text-sm md:text-base font-bold text-brand-deep-navy">Mon – Sat &bull; 10:00 AM – 06:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Embedded Map -->
+                    <div class="mt-10 rounded-2xl overflow-hidden border border-brand-border-gray/80 shadow-sm h-48 md:h-56 relative group z-10">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=C11%20Kisan%20Bazaar,%20Vibhuti%20Khand,%20Gomti%20Nagar,%20Lucknow,%20Uttar%20Pradesh%20226010&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            class="absolute inset-0 w-full h-full filter grayscale-[0.8] opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                        </iframe>
+                        <div class="absolute inset-0 border border-transparent group-hover:border-brand-primary-blue/30 rounded-2xl pointer-events-none transition-colors duration-500"></div>
+                    </div>
                 </div>
-                <div class="bg-white/90 backdrop-blur-sm border border-brand-border-gray/50 p-8 rounded-2xl shadow-lg">
-                    <h3 class="text-2xl font-bold text-brand-deep-navy mb-6">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4"><i class="fa-solid fa-phone text-2xl text-brand-primary-blue"></i><div><a href="tel:+918545973174" class="font-bold hover:text-brand-red-accent transition-colors">+91 85459 73174</a><br><a href="tel:+919580306440" class="font-bold hover:text-brand-red-accent transition-colors">+91 95803 06440</a><br><a href="tel:+917007013655" class="font-bold hover:text-brand-red-accent transition-colors">+91 70070 13655</a></div></div>
-                        <div class="flex items-center gap-4"><i class="fa-solid fa-envelope text-2xl text-brand-primary-blue"></i><a href="mailto:aiwainternationalmanpower@gmail.com" class="font-bold hover:text-brand-red-accent transition-colors">aiwainternationalmanpower@gmail.com</a></div>
-                        <div class="flex items-center gap-4"><i class="fa-solid fa-map-marker-alt text-2xl text-brand-primary-blue"></i><span class="font-bold">Lucknow, Uttar Pradesh, India</span></div>
-                        <div class="flex items-center gap-4"><i class="fa-solid fa-clock text-2xl text-brand-primary-blue"></i><span class="font-bold">Mon - Sat: 10:00 AM - 06:00 PM</span></div>
-                    </div>
-                    <div class="mt-8 h-64 bg-brand-light-gray rounded-lg flex items-center justify-center text-brand-dark-text">
-                        <!-- Google Maps Placeholder -->
-                        <p>Google Maps Placeholder</p>
-                    </div>
+
+                <!-- Right Side: Premium Contact Form -->
+                <div class="lg:w-[55%] xl:w-[60%] p-8 md:p-10 lg:p-12 relative z-10 bg-transparent flex flex-col justify-center">
+                    <h3 class="text-2xl md:text-3xl font-extrabold text-brand-deep-navy mb-2">Send an Inquiry</h3>
+                    <p class="text-brand-dark-text text-sm md:text-base mb-8">Fill out the form below and our consultants will get back to you.</p>
+
+                    <form action="#" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="relative">
+                                <input type="text" id="unified-name" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all shadow-sm placeholder-transparent" placeholder="Full Name" required>
+                                <label for="unified-name" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Full Name</label>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="relative">
+                                <input type="tel" id="unified-phone" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all shadow-sm placeholder-transparent" placeholder="Mobile Number" required>
+                                <label for="unified-phone" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Mobile Number</label>
+                            </div>
+                        </div>
+
+                        <!-- Email Address -->
+                        <div class="relative">
+                            <input type="email" id="unified-email" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all shadow-sm placeholder-transparent" placeholder="Email Address" required>
+                            <label for="unified-email" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Email Address</label>
+                        </div>
+
+                        <!-- Service Required -->
+                        <div class="relative">
+                            <select id="unified-service" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-6 pb-2 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all shadow-sm appearance-none cursor-pointer" required>
+                                <option value="" disabled selected hidden></option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Job Application">Apply for Gulf Jobs</option>
+                                <option value="Employer Hiring">Hire Candidates (Employer)</option>
+                                <option value="Visa Assistance">Visa Assistance</option>
+                                <option value="Interview Booking">Book Interview Slot</option>
+                            </select>
+                            <label for="unified-service" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-invalid:top-4 peer-invalid:text-sm peer-invalid:text-brand-dark-text/60 peer-invalid:normal-case peer-invalid:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-pointer">Service Required</label>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-5 text-brand-dark-text/50 pointer-events-none text-xs"></i>
+                        </div>
+
+                        <!-- Message -->
+                        <div class="relative">
+                            <textarea id="unified-msg" placeholder="Your Message" rows="3" class="peer w-full bg-white/80 border border-brand-border-gray rounded-xl px-4 pt-8 pb-3 text-brand-dark-text focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all shadow-sm resize-none placeholder-transparent" required></textarea>
+                            <label for="unified-msg" class="absolute left-4 top-2 text-[11px] text-brand-primary-blue font-bold uppercase tracking-wider transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-brand-dark-text/60 peer-placeholder-shown:top-4 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-brand-primary-blue peer-focus:font-bold peer-focus:uppercase peer-focus:tracking-wider cursor-text">Your Message</label>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                            <button type="submit" class="radar-btn flex-1 bg-brand-primary-blue text-white font-extrabold py-3.5 rounded-xl shadow-[0_4px_15px_rgba(11,61,145,0.2)] hover:bg-brand-deep-navy hover:shadow-[0_6px_20px_rgba(11,61,145,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group">
+                                <span>Send Inquiry</span>
+                                <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                            </button>
+                            <a href="https://wa.me/919580306440" target="_blank" class="radar-btn flex-1 bg-white border-2 border-[#25D366] text-[#25D366] font-extrabold py-3.5 rounded-xl hover:bg-[#25D366] hover:text-white transition-all shadow-sm flex items-center justify-center gap-2 group">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>WhatsApp Support</span>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Legal Info (Privacy Policy & Terms) -->
-    <section id="privacy-policy" class="py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
+    <section id="privacy-policy" class="py-16 md:py-24 bg-white/60 backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-3xl md:text-5xl font-extrabold mb-8 text-brand-deep-navy tracking-tight text-center">Privacy Policy</h2>
             <div class="prose max-w-none text-brand-dark-text space-y-6 text-sm md:text-base bg-white/90 p-8 rounded-2xl border border-brand-border-gray/50 shadow-sm">
@@ -2171,7 +2257,7 @@
         </div>
     </section>
 
-    <section id="terms-conditions" class="py-24 bg-brand-light-gray backdrop-blur-xl border-y border-brand-border-gray/30">
+    <section id="terms-conditions" class="py-16 md:py-24 bg-brand-light-gray backdrop-blur-xl border-t border-brand-border-gray/30">
         <div class="container mx-auto px-6 max-w-4xl">
             <h2 class="text-3xl md:text-5xl font-extrabold mb-8 text-brand-deep-navy tracking-tight text-center">Terms & Conditions</h2>
             <div class="prose max-w-none text-brand-dark-text space-y-6 text-sm md:text-base bg-white p-8 rounded-2xl border border-brand-border-gray/50 shadow-sm">
@@ -2193,7 +2279,7 @@
         <div class="container mx-auto px-6 max-w-4xl">
             
             <!-- Back Button -->
-            <button onclick="closeBlog()" class="inline-flex items-center gap-2 text-brand-dark-text hover:text-brand-primary-blue font-bold mb-8 transition-colors group bg-white border border-brand-border-gray px-4 py-2 rounded-xl shadow-sm">
+            <button onclick="closeBlog()" class="radar-btn inline-flex items-center gap-2 text-brand-dark-text hover:text-brand-primary-blue font-bold mb-8 transition-colors group bg-white border border-brand-border-gray px-4 py-2 rounded-xl shadow-sm">
                 <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Back to Blogs
             </button>
 
@@ -2512,10 +2598,10 @@
                 <p class="text-brand-light-gray/90 mb-10 max-w-2xl mx-auto text-lg relative z-10 leading-relaxed">Aiwa International Manpower supports candidates with overseas recruitment guidance, interview coordination, and documentation assistance for Gulf opportunities.</p>
                 
                 <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-                    <button onclick="closeBlogAndContact()" class="bg-brand-red-accent text-white px-8 py-4 font-bold rounded-xl shadow-md hover:bg-brand-red-glow hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
+                    <button onclick="closeBlogAndContact()" class="radar-btn bg-brand-red-accent text-white px-8 py-4 font-bold rounded-xl shadow-md hover:bg-brand-red-glow hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
                         <i class="fa-solid fa-envelope"></i> Contact Team
                     </button>
-                    <a href="https://wa.me/919580306440" target="_blank" class="bg-[#25D366] text-white px-8 py-4 font-bold rounded-xl shadow-md hover:bg-[#1DA851] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
+                    <a href="https://wa.me/919580306440" target="_blank" class="radar-btn bg-[#25D366] text-white px-8 py-4 font-bold rounded-xl shadow-md hover:bg-[#1DA851] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 text-lg">
                         <i class="fa-brands fa-whatsapp text-xl"></i> WhatsApp Inquiry
                     </a>
                 </div>
@@ -2537,7 +2623,7 @@
                 <form class="w-full lg:w-auto flex-shrink-0">
                     <div class="flex flex-col sm:flex-row gap-3 relative z-10">
                         <input type="email" placeholder="Enter your email" class="bg-white/10 border border-white/20 text-white placeholder-white/50 rounded-xl px-4 py-3.5 w-full lg:w-80 focus:outline-none focus:border-brand-primary-blue transition">
-                        <button type="submit" class="bg-brand-red-accent text-white font-bold px-8 py-3.5 rounded-xl hover:bg-brand-red-glow transition shadow-lg hover:-translate-y-0.5 transform duration-300">Subscribe</button>
+                        <button type="submit" class="radar-btn bg-brand-red-accent text-white font-bold px-8 py-3.5 rounded-xl hover:bg-brand-red-glow transition shadow-lg hover:-translate-y-0.5 transform duration-300">Subscribe</button>
                     </div>
                 </form>
             </div>
@@ -2549,9 +2635,9 @@
                     <a href="#" class="text-xl md:text-2xl font-extrabold mb-4 inline-flex items-center gap-2"><i class="fa-solid fa-globe text-brand-red-accent"></i><span class="text-brand-primary-blue bg-white px-2 py-0.5 rounded">Aiwa</span> <span class="text-white">Manpower</span></a>
                     <p class="mb-6">Your trusted partner in overseas manpower recruitment for the Gulf region.</p>
                     <div class="flex space-x-3">
-                        <a href="#" class="w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="radar-icon footer-social-icon w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="radar-icon footer-social-icon w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="radar-icon footer-social-icon w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-brand-red-accent hover:border-brand-red-accent transition duration-300"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
 
@@ -2559,11 +2645,11 @@
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4 tracking-wider">Job Seekers</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#jobs" class="hover:text-brand-red-accent transition-colors duration-300">Apply for Jobs</a></li>
-                        <li><a href="#process" class="hover:text-brand-red-accent transition-colors duration-300">Recruitment Process</a></li>
-                        <li><a href="#interview-guidance" class="hover:text-brand-red-accent transition-colors duration-300">Interview Guidance</a></li>
-                        <li><a href="#visa-assistance" class="hover:text-brand-red-accent transition-colors duration-300">Visa Assistance</a></li>
-                        <li><a href="#faq" class="hover:text-brand-red-accent transition-colors duration-300">Candidate FAQs</a></li>
+                        <li><a href="#jobs" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Apply for Jobs</a></li>
+                        <li><a href="#process" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Recruitment Process</a></li>
+                        <li><a href="#interview-guidance" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Interview Guidance</a></li>
+                        <li><a href="#visa-assistance" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Visa Assistance</a></li>
+                        <li><a href="#faq" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Candidate FAQs</a></li>
                     </ul>
                 </div>
 
@@ -2571,10 +2657,10 @@
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4 tracking-wider">Employers</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#hire-candidates" class="hover:text-brand-red-accent transition-colors duration-300">Hire Candidates</a></li>
-                        <li><a href="#hr-solutions" class="hover:text-brand-red-accent transition-colors duration-300">HR Solutions</a></li>
-                        <li><a href="#bulk-hiring" class="hover:text-brand-red-accent transition-colors duration-300">Bulk Hiring</a></li>
-                        <li><a href="#workforce-supply" class="hover:text-brand-red-accent transition-colors duration-300">Workforce Supply</a></li>
+                        <li><a href="#hire-candidates" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Hire Candidates</a></li>
+                        <li><a href="#hr-solutions" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">HR Solutions</a></li>
+                        <li><a href="#bulk-hiring" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Bulk Hiring</a></li>
+                        <li><a href="#workforce-supply" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Workforce Supply</a></li>
                     </ul>
                 </div>
 
@@ -2582,11 +2668,11 @@
                 <div>
                     <h4 class="font-bold text-lg text-white mb-4 tracking-wider">Company</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#about" class="hover:text-brand-red-accent transition-colors duration-300">About Us</a></li>
-                        <li><a href="#contact" class="hover:text-brand-red-accent transition-colors duration-300">Contact Us</a></li>
-                        <li><a href="#blogs" class="hover:text-brand-red-accent transition-colors duration-300">Blogs & Resources</a></li>
-                        <li><a href="#privacy-policy" class="hover:text-brand-red-accent transition-colors duration-300">Privacy Policy</a></li>
-                        <li><a href="#terms-conditions" class="hover:text-brand-red-accent transition-colors duration-300">Terms & Conditions</a></li>
+                        <li><a href="#about" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">About Us</a></li>
+                        <li><a href="#contact" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Contact Us</a></li>
+                        <li><a href="#blogs" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Blogs & Resources</a></li>
+                        <li><a href="#privacy-policy" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Privacy Policy</a></li>
+                        <li><a href="#terms-conditions" class="radar-link footer-link hover:text-brand-red-accent transition-all duration-300">Terms & Conditions</a></li>
                     </ul>
                 </div>
             </div>
@@ -2600,12 +2686,12 @@
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919580306440" target="_blank" class="fixed bottom-8 right-8 bg-brand-red-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_15px_rgba(214,40,40,0.4)] hover:scale-110 transition-transform z-50">
+    <a href="https://wa.me/919580306440" target="_blank" class="radar-btn fixed bottom-8 right-8 bg-brand-red-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_15px_rgba(214,40,40,0.4)] hover:scale-110 transition-transform z-50">
         <i class="fa-brands fa-whatsapp text-3xl"></i>
     </a>
 
     <!-- Scroll to Top Button -->
-    <button id="scrollToTopBtn" class="fixed bottom-28 right-8 bg-brand-deep-navy text-white w-12 h-12 rounded-full hidden items-center justify-center shadow-lg hover:bg-brand-primary-blue transition z-50">
+    <button id="scrollToTopBtn" class="radar-btn fixed bottom-28 right-8 bg-brand-deep-navy text-white w-12 h-12 rounded-full hidden items-center justify-center shadow-lg hover:bg-brand-primary-blue transition z-50">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
@@ -2631,37 +2717,37 @@
                         <!-- Full Name -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Full Name <span class="text-brand-red-accent">*</span></label>
-                            <input type="text" required placeholder="John Doe" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="text" required placeholder="John Doe" class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- Email -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Email Address <span class="text-brand-red-accent">*</span></label>
-                            <input type="email" required placeholder="john@example.com" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="email" required placeholder="john@example.com" class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- Mobile Number -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Mobile Number <span class="text-brand-red-accent">*</span></label>
-                            <input type="tel" required placeholder="+91 9876543210" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="tel" required placeholder="+91 9876543210" class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- WhatsApp Number -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">WhatsApp Number</label>
-                            <input type="tel" placeholder="Same as mobile" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:border-[#25D366] focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="tel" placeholder="Same as mobile" class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#25D366]/30 focus:border-[#25D366] focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- Current Location -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Current Location <span class="text-brand-red-accent">*</span></label>
-                            <input type="text" placeholder="City, Country" required class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="text" placeholder="City, Country" required class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- Current Profession -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Current Profession</label>
-                            <input type="text" placeholder="e.g. HVAC Technician" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
+                            <input type="text" placeholder="e.g. HVAC Technician" class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
                         </div>
                         <!-- Preferred Country -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Preferred Gulf Country</label>
-                            <select class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
+                            <select class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
                                 <option value="" disabled selected>Select Country</option>
                                 <option>UAE</option>
                                 <option>Saudi Arabia</option>
@@ -2675,7 +2761,7 @@
                         <!-- Job Category -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Job Category</label>
-                            <select class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
+                            <select class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
                                 <option value="" disabled selected>Select Category</option>
                                 <option>Driver</option>
                                 <option>Construction</option>
@@ -2691,7 +2777,7 @@
                         <!-- Experience -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Years of Experience</label>
-                            <select class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
+                            <select class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
                                 <option value="" disabled selected>Select Experience</option>
                                 <option>Fresher (0 Years)</option>
                                 <option>1-2 Years</option>
@@ -2703,7 +2789,7 @@
                         <!-- Passport -->
                         <div class="space-y-1.5">
                             <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Passport Available?</label>
-                            <select class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
+                            <select class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
                                 <option value="" disabled selected>Select</option>
                                 <option>Yes (Valid)</option>
                                 <option>No</option>
@@ -2728,10 +2814,10 @@
                     <!-- Message -->
                     <div class="space-y-1.5">
                         <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Message / Additional Details</label>
-                        <textarea rows="3" placeholder="Tell us about your target role..." class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm"></textarea>
+                        <textarea rows="3" placeholder="Tell us about your target role..." class="w-full bg-brand-light-gray/50 border border-brand-border-gray rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue/30 focus:border-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm resize-none"></textarea>
                     </div>
 
-                    <button type="submit" id="submit-btn" class="w-full bg-brand-primary-blue text-white py-4 rounded-xl font-extrabold hover:bg-brand-red-accent shadow-[0_4px_15px_rgba(11,61,145,0.3)] hover:shadow-[0_6px_25px_rgba(214,40,40,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group text-lg mt-2">
+                    <button type="submit" id="submit-btn" class="radar-btn w-full bg-brand-primary-blue text-white py-4 rounded-xl font-extrabold hover:bg-brand-red-accent shadow-[0_4px_15px_rgba(11,61,145,0.3)] hover:shadow-[0_6px_25px_rgba(214,40,40,0.4)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group text-lg mt-2">
                         <span>Submit Application</span>
                         <i class="fa-solid fa-paper-plane group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
                     </button>
@@ -2744,96 +2830,7 @@
                     </div>
                     <h3 class="text-3xl font-extrabold text-brand-deep-navy mb-3">Application Submitted!</h3>
                     <p class="text-brand-dark-text mb-10 max-w-md mx-auto text-lg">Thank you for applying with Aiwa International Manpower. Our recruitment team will review your profile and contact you shortly.</p>
-                    <button onclick="closeApplyModal()" class="bg-brand-primary-blue text-white px-10 py-3.5 rounded-xl font-bold hover:bg-brand-deep-navy transition-colors shadow-md">Done</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Consultation Form Modal (For Packages) -->
-    <div id="consultation-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-brand-deep-navy/80 opacity-0 pointer-events-none transition-opacity duration-300 p-4 sm:p-6">
-        <div class="bg-white border border-brand-primary-blue/30 rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 relative flex flex-col" id="consultation-modal-content">
-            
-            <!-- Modal Header -->
-            <div class="sticky top-0 bg-white z-20 border-b border-brand-border-gray px-6 py-5 flex justify-between items-center rounded-t-2xl">
-                <div>
-                    <h3 class="text-xl md:text-2xl font-extrabold text-brand-deep-navy tracking-tight">Book Consultation</h3>
-                    <p class="text-brand-dark-text text-sm mt-1">Speak with our recruitment team to plan your overseas career.</p>
-                </div>
-                <button onclick="closeConsultationModal()" class="w-8 h-8 rounded-full bg-brand-light-gray flex items-center justify-center text-brand-dark-text hover:bg-brand-red-accent hover:text-white transition-colors flex-shrink-0">
-                    <i class="fa-solid fa-times text-lg"></i>
-                </button>
-            </div>
-
-            <!-- Form Body -->
-            <div class="p-6 md:p-8">
-                <form id="consultation-form" class="space-y-6" onsubmit="handleConsultationSubmit(event)">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                        <!-- Full Name -->
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Full Name <span class="text-brand-red-accent">*</span></label>
-                            <input type="text" required placeholder="John Doe" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
-                        </div>
-                        <!-- Mobile Number -->
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Mobile Number <span class="text-brand-red-accent">*</span></label>
-                            <input type="tel" required placeholder="+91 9876543210" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm">
-                        </div>
-                        <!-- WhatsApp Number -->
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">WhatsApp Number</label>
-                            <input type="tel" placeholder="Same as mobile" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:border-[#25D366] focus:bg-white transition-all text-sm shadow-sm">
-                        </div>
-                        <!-- Interested Package -->
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Interested Package</label>
-                            <select id="consultation-package" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer font-semibold text-brand-primary-blue">
-                                <option value="" disabled selected>Select Plan</option>
-                                <option value="Basic Registration">Basic Registration (₹1,499)</option>
-                                <option value="Interview Assistance">Interview Assistance (₹4,999)</option>
-                                <option value="Complete Placement Support">Complete Placement Support (₹14,999)</option>
-                            </select>
-                        </div>
-                        <!-- Preferred Country -->
-                        <div class="space-y-1.5 md:col-span-2">
-                            <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Target Country for Placement</label>
-                            <select class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm cursor-pointer">
-                                <option value="" disabled selected>Select Target Country</option>
-                                <option>UAE</option>
-                                <option>Saudi Arabia</option>
-                                <option>Qatar</option>
-                                <option>Kuwait</option>
-                                <option>Oman</option>
-                                <option>Bahrain</option>
-                                <option>Any Gulf Country</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Message -->
-                    <div class="space-y-1.5">
-                        <label class="text-[11px] font-bold text-brand-primary-blue uppercase tracking-wider ml-1">Message / Questions</label>
-                        <textarea rows="3" placeholder="Do you have any specific questions about our services?" class="w-full bg-brand-light-gray border border-brand-border-gray rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-primary-blue focus:bg-white transition-all text-sm shadow-sm"></textarea>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
-                        <button type="submit" id="consultation-submit-btn" class="flex-1 bg-brand-primary-blue text-white py-4 rounded-xl font-extrabold hover:bg-brand-deep-navy shadow-[0_4px_15px_rgba(11,61,145,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group text-base">
-                            <i class="fa-solid fa-headset"></i> <span>Request Callback</span>
-                        </button>
-                        <a href="https://wa.me/919580306440" target="_blank" class="flex-1 bg-[#25D366] text-white py-4 rounded-xl font-extrabold hover:bg-[#1DA851] shadow-[0_4px_15px_rgba(37,211,102,0.3)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 group text-base">
-                            <i class="fa-brands fa-whatsapp text-lg"></i> <span>WhatsApp Consultation</span>
-                        </a>
-                    </div>
-                </form>
-
-                <!-- Success State -->
-                <div id="consultation-success" class="hidden flex-col items-center justify-center py-16 text-center">
-                    <div class="w-24 h-24 bg-brand-primary-blue/10 text-brand-primary-blue rounded-full flex items-center justify-center text-5xl mb-6 shadow-[0_0_30px_rgba(11,61,145,0.15)] animate-[scaleIn_0.5s_ease-out_forwards]">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-                    <h3 class="text-3xl font-extrabold text-brand-deep-navy mb-3">Consultation Requested!</h3>
-                    <p class="text-brand-dark-text mb-10 max-w-md mx-auto text-lg">Our recruitment specialists will reach out to you shortly to discuss your professional placement plan.</p>
-                    <button onclick="closeConsultationModal()" class="bg-brand-primary-blue text-white px-10 py-3.5 rounded-xl font-bold hover:bg-brand-deep-navy transition-colors shadow-md">Done</button>
+                    <button onclick="closeApplyModal()" class="radar-btn bg-brand-primary-blue text-white px-10 py-3.5 rounded-xl font-bold hover:bg-brand-deep-navy transition-colors shadow-md">Done</button>
                 </div>
             </div>
         </div>
@@ -2881,45 +2878,6 @@
                 document.getElementById('global-apply-form').classList.add('hidden');
                 document.getElementById('apply-success').classList.remove('hidden');
                 document.getElementById('apply-success').classList.add('flex');
-            }, 1200);
-        }
-
-        // Consultation Modal Logic
-        function openConsultationModal(packageName = '') {
-            const modal = document.getElementById('consultation-modal');
-            const content = document.getElementById('consultation-modal-content');
-            if (packageName) {
-                document.getElementById('consultation-package').value = packageName;
-            }
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            content.classList.remove('scale-95');
-            content.classList.add('scale-100');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeConsultationModal() {
-            const modal = document.getElementById('consultation-modal');
-            const content = document.getElementById('consultation-modal-content');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-            content.classList.remove('scale-100');
-            content.classList.add('scale-95');
-            document.body.style.overflow = '';
-            setTimeout(() => {
-                document.getElementById('consultation-form').reset();
-                document.getElementById('consultation-form').classList.remove('hidden');
-                document.getElementById('consultation-success').classList.add('hidden');
-                document.getElementById('consultation-submit-btn').innerHTML = `<i class="fa-solid fa-headset"></i> <span>Request Callback</span>`;
-            }, 300);
-        }
-
-        function handleConsultationSubmit(e) {
-            e.preventDefault();
-            const btn = document.getElementById('consultation-submit-btn');
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing...`;
-            setTimeout(() => {
-                document.getElementById('consultation-form').classList.add('hidden');
-                document.getElementById('consultation-success').classList.remove('hidden');
-                document.getElementById('consultation-success').classList.add('flex');
             }, 1200);
         }
 
@@ -3005,7 +2963,7 @@
                             <p class="text-brand-dark-text text-sm"><i class="fa-solid fa-money-bill w-5 text-brand-red-accent"></i> ${job.salary}</p>
                             <p class="text-brand-dark-text text-sm"><i class="fa-solid fa-briefcase w-5 text-brand-red-accent"></i> ${job.experience}</p>
                         </div>
-                        <button onclick="openApplyModal()" class="block text-center w-full mt-auto bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-2.5 rounded-xl font-bold group-hover:bg-brand-primary-blue group-hover:text-white transition-colors duration-300">
+                        <button onclick="openApplyModal()" class="radar-btn block text-center w-full mt-auto bg-transparent border-2 border-brand-primary-blue text-brand-primary-blue py-2.5 rounded-xl font-bold group-hover:bg-brand-primary-blue group-hover:text-white transition-colors duration-300">
                             Apply Now
                         </button>
                     </div>
